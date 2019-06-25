@@ -25,7 +25,7 @@ popd  > /dev/null
 echo "Validating installed packages..."
 for pl in "${platforms[@]}"
 do
-    docker run --rm -it motesque/$pl-debian:${DOCKER_TAG} pip3 list > ./tmp/installed_packages_$pl.txt
+    docker run --rm motesque/$pl-debian:${DOCKER_TAG} pip3 list > ./tmp/installed_packages_$pl.txt
     echo "Retrieved installed packet list from 'motesque/$pl-debian:${DOCKER_TAG}'"
 done
 
