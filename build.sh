@@ -42,9 +42,7 @@ else
     docker login -u ${dockerUsr} -p ${dockerPwd}
     for pl in "${platforms[@]}"
     do
-        #docker push motesque/$pl-debian:${DOCKER_TAG}
-        docker push docker-test-repo/$pl-debian:${DOCKER_TAG}
+        docker push motesque/$pl-debian:${DOCKER_TAG}
+        #docker push docker-test-repo/$pl-debian:${DOCKER_TAG}
     done
-
 fi
-
