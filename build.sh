@@ -35,15 +35,13 @@ if [[ -s ./tmp/diff_result.txt ]]
 then
     echo "ERROR - Packet versions across docker base images do not match. Please check."
 else
-    #dockerUsr=`cat /var/lib/jenkins/dockerhub.credentials | cut -d: -f1`
+    dockerUsr=`cat /var/lib/jenkins/dockerhub.credentials | cut -d: -f1`
     #dockerPwd=`cat /var/lib/jenkins/dockerhub.credentials | cut -d: -f2`
-    #echo "OK - Packet version match across all docker base images. Well done!"
-    #echo "  To publish, execute"
-    #docker login -u ${dockerUsr} -p ${dockerPwd}
-    docker login 
+    echo "OK - Packet version match across all docker base images. Well done!"
+    echo "     Publishing..."
+    cat /var/lib/jenkins/dockerhub.credentials | cut -d: -f2 | docker login -u ${dockerUsr} --password-stdin
     for pl in "${platforms[@]}"
     do
         docker push motesque/$pl-debian:${DOCKER_TAG}
-        #docker push docker-test-repo/$pl-debian:${DOCKER_TAG}
     done
 fi
