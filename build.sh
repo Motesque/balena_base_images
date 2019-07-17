@@ -4,7 +4,7 @@ rm -rf ./tmp
 # the
 # https://www.ecliptik.com/Cross-Building-and-Running-Multi-Arch-Docker-Images/#qemu-on-linux
 # apt-getinstall -y qemu qemu-user-static qemu-user binfmt-support
-REVISION=h
+REVISION=i
 echo "Building Revision '$REVISION'"
 platforms=( "raspberrypi3" "amd64" "imx8m-var-dart"  )
 for pl in "${platforms[@]}"
