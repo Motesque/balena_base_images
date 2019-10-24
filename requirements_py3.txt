@@ -33,3 +33,5 @@ flask==1.0.2
 RPi.GPIO==0.6.5
 smbus-cffi==0.5.1
 weasyprint==47
+llvmlite==0.30.0
+numba==0.46.0
