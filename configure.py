@@ -34,4 +34,4 @@ if __name__ == "__main__":
     try:
         render(template_fn=args.FILE, platform=args.platform)
     except Exception as err:
-        sys.stderr.write(f"ERROR Cannot create docker-compose.yml! error='{err}'\n")
+        sys.stderr.write(f"ERROR Cannot create Dockerfile! error='{repr(err)}'\n")
