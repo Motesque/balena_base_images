@@ -41,11 +41,12 @@ RUN install_packages \
      curl \
      dbus \
      ffmpeg \
+     htop \ 
      less  \
      libcairo2  \
+     libopenjp2-7 \
      libpango-1.0-0  \
      libpangocairo-1.0-0  \
-     libopenjp2-7 \
      net-tools \
      netcat \
      nfs-common \
@@ -54,11 +55,15 @@ RUN install_packages \
      openssh-client \
      usbutils \
      vim \
-     wget
+     wget \
+     zlib1g
+
 
 # install microsoft contrib core fonts (Arial, Georgia etc)
-RUN install_packages wget cabextract xfonts-utils && wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb && \
-    dpkg -i ttf-mscorefonts-installer_3.6_all.deb
+RUN install_packages cabextract xfonts-utils \
+    && wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb \
+    && dpkg -i ttf-mscorefonts-installer_3.6_all.deb \
+    && rm ttf-mscorefonts-installer_3.6_all.deb
 
 {% if cross_build %}
 RUN [ "cross-build-start" ]
@@ -66,8 +71,12 @@ RUN [ "cross-build-start" ]
 
 # copy and install Python 3
 COPY --from=build /tmp/Python-3.6.8/ /tmp/Python-3.6.8/
-RUN cd /tmp/Python-3.6.8/ && make install && cp libpython3.6m.so.1.0 /usr/lib/ && cd /tmp/ && rm -rf /tmp/Python-3.6.8/ && pip3 install wheel
-
+RUN cd /tmp/Python-3.6.8/ \
+    && make install \
+    && cp libpython3.6m.so.1.0 /usr/lib/ \
+    && cd /tmp/ \
+    && rm -rf /tmp/Python-3.6.8/ \
+    && pip3 install --upgrade wheel==0.33.6 pip==19.3.1
 
 #RUN apt-get update && apt-get install -y \
 #     curl \
@@ -103,10 +112,11 @@ RUN cd /tmp/Python-3.6.8/ && make install && cp libpython3.6m.so.1.0 /usr/lib/ &
 #     zlib1g-dev
 
 COPY ./requirements.txt /usr/tmp/
-#RUN pip3 install  \
-        --trusted-host pypi.motesque.com \
+RUN pip3 install  \
+       --trusted-host pypi.motesque.com \
         --index-url http://pypi.motesque.com:8181 \
         --extra-index-url https://pypi.org/simple \
+        --no-cache-dir \
         --no-deps --find-links . -r /usr/tmp/requirements.txt \
         && pip3 check
 
