@@ -78,6 +78,7 @@ COPY ./requirements.txt ./requirements-crossbar.txt /tmp/
 RUN pip3 install  \
         --trusted-host pypi.motesque.com \
         --index-url http://pypi.motesque.com:8181 \
+        --extra-index-url https://pypi.org/simple \
         --no-cache-dir \
         --no-deps --find-links . -r /tmp/requirements.txt  \
         && pip3 check
