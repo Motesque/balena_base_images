@@ -1,7 +1,7 @@
 #!/bin/bash
 ARCH=$1
 CONTAINER=$2
-REVISION=k
+REVISION=l
 if [[ $WORKSPACE == "" ]]; then
     echo "ERROR: No WORKSPACE set"
     exit 1
