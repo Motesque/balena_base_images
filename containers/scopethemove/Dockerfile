@@ -84,89 +84,12 @@ RUN pip3 install  \
 
 RUN [ "if [ $ARCH != "amd64" ]; then cross-build-end; fi" ]
 
+# 2nd tier dependecies
+RUN install_packages \
+       dfu-util \
+       nginx \
+       lockfile-progs \
+       rsyslog  \
+       rsyslog-gnutls
 
-#
-#RUN install_packages \
-#     make \
-#     cron \
-#     curl \
-#     dbus \
-#     ffmpeg \
-#     htop \
-#     less  \
-#     libcairo2  \
-#     libopenjp2-7 \
-#     libpango-1.0-0  \
-#     libpangocairo-1.0-0  \
-#     net-tools \
-#     netcat \
-#     nfs-common \
-#     ntp \
-#     openssl  \
-#     openssh-client \
-#     usbutils \
-#     vim \
-#     wget \
-#     zlib1g
-#
-#
 
-#
-#{% if cross_build %}
-#RUN [ "cross-build-start" ]
-#{% endif %}
-#
-## copy and install Python 3
-#COPY --from=build /tmp/Python-3.6.8/ /tmp/Python-3.6.8/
-#RUN cd /tmp/Python-3.6.8/ \
-#    && make install \
-#    && cp libpython3.6m.so.1.0 /usr/lib/ \
-#    && cd /tmp/ \
-#    && rm -rf /tmp/Python-3.6.8/ \
-#    && pip3 install --upgrade wheel==0.33.6 pip==19.3.1
-#
-##RUN apt-get update && apt-get install -y \
-##     curl \
-##     dbus \
-##     ffmpeg \
-##     gfortran \
-##     ghostscript \
-##     htop \
-##     jq \
-##     libatlas-base-dev \
-##     libbz2-dev \
-##     libffi-dev \
-##     libdbus-glib-1-dev \
-##     libgdbm-dev \
-##     libhdf5-dev \
-##     libjpeg-dev \
-##     liblapack-dev  \
-##     libgirepository1.0-dev \
-##     libncursesw5-dev \
-##     libopenblas-dev \
-##     libsqlite3-dev \
-##     libssl-dev \
-##     net-tools \
-##     netcat \
-##     nfs-common \
-##     ntp \
-##     openssl  \
-##     pandoc \
-##     tk-dev \
-##     usbutils \
-##     vim \
-##     wget \
-##     zlib1g-dev
-#
-#COPY ./requirements.txt /usr/tmp/
-#RUN pip3 install  \
-#       --trusted-host pypi.motesque.com \
-#        --index-url http://pypi.motesque.com:8181 \
-#        --extra-index-url https://pypi.org/simple \
-#        --no-cache-dir \
-#        --no-deps --find-links . -r /usr/tmp/requirements.txt \
-#        && pip3 check
-#
-#{% if cross_build %}
-#RUN [ "cross-build-end" ]
-#{% endif %}
