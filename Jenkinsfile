@@ -28,6 +28,11 @@ pipeline {
                 sh 'automation/jenkins_test.sh scopethemove'
             }
         }
+         stage('Publish to DockerHub') {
+            steps {
+                sh 'automation/jenkins_publish.sh scopethemove'
+            }
+        }
 
     }
 }
