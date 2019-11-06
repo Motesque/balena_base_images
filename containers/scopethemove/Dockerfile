@@ -70,7 +70,7 @@ RUN set -e \
     && tar -zxf Python-$PYTHON_VERSION.linux-$ARCH.tar.gz  --strip-components=1 \
     && rm Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && ldconfig \
-    && pip3 install --upgrade pip
+    && pip3 install --upgrade pip wheel
 
 RUN pip3 install --no-deps /tmp/wheels/*.whl && rm -rf /tmp/wheels/
 
