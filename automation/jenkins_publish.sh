@@ -13,5 +13,5 @@ platforms=( "raspberrypi3" "amd64" )
 for pl in "${platforms[@]}"
 do
     echo "docker push motesque/${CONTAINER}/$pl-debian:${DOCKER_TAG}"
-    docker push motesque/${CONTAINER}/$pl-debian:${DOCKER_TAG}
+    docker push motesque/${CONTAINER}-$pl-debian:${DOCKER_TAG}
 done
