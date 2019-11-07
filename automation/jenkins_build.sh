@@ -1,7 +1,7 @@
 #!/bin/bash
 ARCH=$1
 CONTAINER=$2
-REVISION=l
+REVISION=m1
 if [[ $WORKSPACE == "" ]]; then
     echo "ERROR: No WORKSPACE set"
     exit 1
@@ -12,6 +12,13 @@ mkdir -p $WORKSPACE/artifacts
 cd $WORKSPACE/containers/$CONTAINER
 
 echo "Building Docker Base Image for '$CONTAINER' - '$ARCH'"
+# remove the crossbuild commands if needed
+if [[ $ARCH == "amd64" ]]; then
+    cat Dockerfile.in  | sed -e 's/RUN \[ "cross-build-start" \]//g' -e 's/RUN \[ \"cross-build-end\" \]//g' > Dockerfile
+else
+    cp Dockerfile.in Dockerfile
+fi
+
 # use the last entry as the TAG
 DOCKER_TAG=$(grep FROM Dockerfile | tail -n 1 | cut -d : -f 2)$REVISION
 docker build -t motesque/$CONTAINER-$ARCH-debian:${DOCKER_TAG} --build-arg ARCH=$ARCH  .

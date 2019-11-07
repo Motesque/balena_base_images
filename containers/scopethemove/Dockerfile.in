@@ -3,7 +3,7 @@ FROM balenalib/$ARCH-debian:stretch-build-20190215 as build
 ARG ARCH
 ENV PYTHON_VERSION=3.6.8
 
-RUN [ "if [ $ARCH != "amd64" ]; then cross-build-start; fi" ]
+RUN [ "cross-build-start" ]
 
 RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && wget -nv https://download.motesque.com/wiringPi-96344ff.tar.gz \
@@ -22,7 +22,7 @@ RUN set -e \
 
 RUN pip3 install wheel && pip3 wheel --no-deps -w /tmp/wheels RPi.GPIO==0.6.5
 
-RUN [ "if [ $ARCH != "amd64" ]; then cross-build-end; fi" ]
+RUN [ "cross-build-end" ]
 
 
 #-------------------------
@@ -35,7 +35,7 @@ ENV PYTHON_VERSION=3.6.8
 COPY --from=build /wiring/ /
 COPY --from=build /tmp/wheels /tmp/wheels
 
-RUN [ "if [ $ARCH != "amd64" ]; then cross-build-start; fi" ]
+RUN [ "cross-build-start" ]
 
 RUN install_packages \
      cron \
@@ -83,7 +83,7 @@ RUN pip3 install  \
         --no-deps --find-links . -r /tmp/requirements.txt  \
         && pip3 check
 
-RUN [ "if [ $ARCH != "amd64" ]; then cross-build-end; fi" ]
+RUN [ "cross-build-end" ]
 
 # 2nd tier dependecies
 RUN install_packages \
