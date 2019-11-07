@@ -2,6 +2,8 @@ ARG ARCH
 FROM balenalib/$ARCH-debian:stretch-build-20190215 as build
 ARG ARCH
 
+RUN [ "cross-build-start" ]
+
 RUN install_packages \
     autotools-dev \
     debhelper \
@@ -12,6 +14,17 @@ RUN install_packages \
     lsb-core  \
     pkg-kde-tools  \
     zip
+
+## NOTES:
+## CouchDB 2.x on aarch64 NEEDS patches for SpiderMonkey 1.8.5. The official debian packages won't work and the
+## couchdb crashes on runtime (when creating views)
+## These github issues talk about it. The remedy is to use couchdb-pkg to build the patched version before compiling
+## CouchDB.
+##   - https://github.com/apache/couchdb/issues/1333
+##   - https://github.com/apache/couchdb/issues/1832
+##   - https://github.com/apache/couchdb-pkg
+##   - https://github.com/apache/couchdb-docker/issues/54
+
 
 # compile patched CouchDB SpiderMonkey
 RUN cd  /tmp \
@@ -29,12 +42,17 @@ RUN cd /tmp/ \
     && ./configure --disable-docs \
     && make release -j4  > make-couchdb.log 2> make-couchdb-error.log
 
+RUN [ "cross-build-end" ]
+
 #-------------------------
 # Runtime Image
 #-------------------------
 FROM balenalib/$ARCH-debian:stretch-run-20190215
 ARG ARCH
 ENV PYTHON_VERSION=3.6.8
+
+RUN [ "cross-build-start" ]
+
 RUN install_packages wget libnspr4 icu-devtools
 
 COPY --from=build  /tmp/apache-couchdb-2.3.0/rel/couchdb /usr/local/lib/couchdb
@@ -57,12 +75,4 @@ RUN pip3 install  \
         --no-deps --find-links . -r /tmp/requirements.txt  \
         && pip3 check
 
-## NOTES:
-## CouchDB 2.x on aarch64 NEEDS patches for SpiderMonkey 1.8.5. The official debian packages won't work and the
-## couchdb crashes on runtime (when creating views)
-## These github issues talk about it. The remedy is to use couchdb-pkg to build the patched version before compiling
-## CouchDB.
-##   - https://github.com/apache/couchdb/issues/1333
-##   - https://github.com/apache/couchdb/issues/1832
-##   - https://github.com/apache/couchdb-pkg
-##   - https://github.com/apache/couchdb-docker/issues/54
+RUN [ "cross-build-end" ]

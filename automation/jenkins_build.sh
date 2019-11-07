@@ -1,7 +1,7 @@
 #!/bin/bash
 ARCH=$1
 CONTAINER=$2
-REVISION=m1
+REVISION=$(git log |  head -n 1 | cut -f2 -d ' ' | cut -c1-7)
 if [[ $WORKSPACE == "" ]]; then
     echo "ERROR: No WORKSPACE set"
     exit 1
@@ -20,7 +20,7 @@ else
 fi
 
 # use the last entry as the TAG
-DOCKER_TAG=$(grep FROM Dockerfile | tail -n 1 | cut -d : -f 2)$REVISION
+DOCKER_TAG=$(grep FROM Dockerfile | tail -n 1 | cut -d : -f 2)-$REVISION
 docker build -t motesque/$CONTAINER-$ARCH-debian:${DOCKER_TAG} --build-arg ARCH=$ARCH  .
 
 # extract the list with the installed packages

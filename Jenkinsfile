@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Test Packet Versions') {
             steps {
-                sh 'automation/jenkins_test.sh scopethemove'
+                sh 'automation/jenkins_validate.sh scopethemove'
             }
         }
          stage('Publish to DockerHub') {
