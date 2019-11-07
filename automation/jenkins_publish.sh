@@ -8,7 +8,7 @@ cat /var/lib/jenkins/dockerhub.credentials | cut -d: -f2 | docker login -u ${doc
 
 echo "     Publishing container $CONTAINER"
 cd $WORKSPACE/containers/$CONTAINER
-DOCKER_TAG=$(grep FROM Dockerfile | tail -n 1 | cut -d : -f 2)$REVISION
+DOCKER_TAG=$(grep FROM Dockerfile | tail -n 1 | cut -d : -f 2)-$REVISION
 platforms=( "raspberrypi3" "amd64" )
 for pl in "${platforms[@]}"
 do

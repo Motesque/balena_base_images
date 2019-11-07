@@ -1,5 +1,4 @@
 # carry over the revision as it is specified in the jenkins_build.sh
-REVISION=$(git log |  head -n 1 | cut -f2 -d ' ' | cut -c1-7)
 CONTAINER=$1
 diff -q --from-file $WORKSPACE/validation/${CONTAINER}/installed_packages_amd64.txt  $WORKSPACE/validation/${CONTAINER}/installed_packages_raspberrypi3.txt
 rc_diff=$?
