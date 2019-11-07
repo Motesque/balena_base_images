@@ -1,3 +1,7 @@
+#-------------------------
+# Build Stage
+#-------------------------
+
 ARG ARCH
 FROM balenalib/$ARCH-debian:stretch-build-20190215 as build
 ARG ARCH
@@ -5,6 +9,7 @@ ENV PYTHON_VERSION=3.6.8
 
 RUN [ "cross-build-start" ]
 
+# Compile wiring library for i2c led control
 RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && wget -nv https://download.motesque.com/wiringPi-96344ff.tar.gz \
     && tar xfz wiringPi-96344ff.tar.gz \
@@ -13,27 +18,17 @@ RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && DESTDIR=/wiring/usr make \
     && DESTDIR=/wiring/usr make install
 
-RUN set -e \
-    && wget -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
-    && tar -zxf Python-$PYTHON_VERSION.linux-$ARCH.tar.gz  --strip-components=1 \
-    && rm Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
-    && ldconfig \
-    && pip3 install --upgrade pip
-
-RUN pip3 install wheel && pip3 wheel --no-deps -w /tmp/wheels RPi.GPIO==0.6.5
-
 RUN [ "cross-build-end" ]
 
 
 #-------------------------
-# Runtime Image
+# Runtime Stage
 #-------------------------
 FROM balenalib/$ARCH-debian:stretch-run-20190215
 ARG ARCH
 ENV PYTHON_VERSION=3.6.8
 
 COPY --from=build /wiring/ /
-COPY --from=build /tmp/wheels /tmp/wheels
 
 RUN [ "cross-build-start" ]
 
@@ -41,6 +36,7 @@ RUN install_packages \
      cron \
      curl \
      dbus \
+     dfu-util \
      ffmpeg \
      htop \
      less  \
@@ -59,12 +55,13 @@ RUN install_packages \
      wget \
      zlib1g
 
-# install microsoft contrib core fonts (Arial, Georgia etc)
+# install microsoft contrib core fonts (Arial, Georgia etc). Needed for proper PDF reports
 RUN install_packages cabextract xfonts-utils \
     && wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb \
     && dpkg -i ttf-mscorefonts-installer_3.6_all.deb \
     && rm ttf-mscorefonts-installer_3.6_all.deb
 
+# install python 3.x for this platform
 RUN set -e \
     && wget -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && tar -zxf Python-$PYTHON_VERSION.linux-$ARCH.tar.gz  --strip-components=1 \
@@ -72,8 +69,12 @@ RUN set -e \
     && ldconfig \
     && pip3 install --upgrade pip wheel
 
-RUN pip3 install --no-deps /tmp/wheels/*.whl && rm -rf /tmp/wheels/
+# we need to particle-cli to update photon bootloaders. We also need to patch it for python3
+RUN if [ "$(dpkg --print-architecture)" = "armhf" ]; then wget https://particle.io/install-cli \
+    && sed -i "s\python\python3\g" install-cli \
+    && bash < install-cli; else echo 'skipping particle cli for unsupported architecture'; fi
 
+# install all neccessary python packages. --no-deps ensures every version is pinned
 COPY ./requirements.txt ./requirements-crossbar.txt /tmp/
 RUN pip3 install  \
         --trusted-host pypi.motesque.com \
@@ -87,7 +88,6 @@ RUN [ "cross-build-end" ]
 
 # 2nd tier dependecies
 RUN install_packages \
-       dfu-util \
        nginx \
        lockfile-progs \
        rsyslog  \
