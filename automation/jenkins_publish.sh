@@ -1,5 +1,5 @@
 # carry over the revision as it is specified in the jenkins_build.sh
-REVISION=$(grep REVISION= $WORKSPACE/automation/jenkins_build.sh | cut -d = -f 2)
+REVISION=$(git log |  head -n 1 | cut -f2 -d ' ' | cut -c1-7)
 CONTAINER=$1
 
 
