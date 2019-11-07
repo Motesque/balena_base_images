@@ -56,6 +56,7 @@ pyparsing==2.4.2
 Pyphen==0.9.5
 pyserial==3.4
 python-dateutil==2.8.0
+python-util==1.2
 python4yahdlc==1.2.0
 pytz==2019.3
 pyudev==0.21.0
