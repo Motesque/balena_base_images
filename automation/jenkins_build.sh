@@ -20,7 +20,7 @@ else
 fi
 
 # use the last entry as the TAG
-DOCKER_TAG=$(grep FROM Dockerfile | tail -n 1 | cut -d : -f 2)-$REVISION
+DOCKER_TAG=$(grep FROM Dockerfile | tail -n 1 | cut -d : -f 2)-git${REVISION}
 docker build -t motesque/$CONTAINER-$ARCH-debian:${DOCKER_TAG} --build-arg ARCH=$ARCH  .
 
 # extract the list with the installed packages
