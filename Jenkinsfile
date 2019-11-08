@@ -27,6 +27,13 @@ pipeline {
                 sh 'automation/jenkins_build.sh raspberrypi3 ottobock'
             }
         }
+        stage('Build-imx8m-var-dart') {
+            steps {
+                sh 'automation/jenkins_build.sh imx8m-var-dart scopethemove'
+                sh 'automation/jenkins_build.sh imx8m-var-dart scopethemove_db'
+                sh 'automation/jenkins_build.sh imx8m-var-dart ottobock'
+            }
+        }
         stage('Test Packet Versions') {
             steps {
                 sh 'automation/jenkins_validate.sh scopethemove'
