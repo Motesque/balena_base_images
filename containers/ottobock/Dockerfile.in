@@ -11,6 +11,7 @@ RUN install_packages \
     libcairo2  \
     libpango-1.0-0  \
     libpangocairo-1.0-0  \
+    libopenblas-base \
     libopenjp2-7 \
     nginx \
     openssh-client \

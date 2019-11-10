@@ -42,6 +42,7 @@ RUN install_packages \
      less  \
      libcairo2  \
      libopenjp2-7 \
+     libopenblas-base \
      libpango-1.0-0  \
      libpangocairo-1.0-0  \
      net-tools \
