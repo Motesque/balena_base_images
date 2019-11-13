@@ -86,7 +86,7 @@ RUN pip3 install  \
         --no-deps --find-links . -r /tmp/requirements.txt  \
         && pip3 check
 
-RUN [ "cross-build-end" ]
+
 
 # 2nd tier dependecies
 RUN install_packages \
@@ -95,4 +95,4 @@ RUN install_packages \
        rsyslog  \
        rsyslog-gnutls
 
-
+RUN [ "cross-build-end" ]
