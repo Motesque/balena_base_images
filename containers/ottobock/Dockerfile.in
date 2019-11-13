@@ -17,7 +17,7 @@ RUN install_packages \
     openssh-client \
     vim \
     wget
-s
+
 # install microsoft contrib core fonts (Arial, Georgia etc). Needed for proper PDF reports
 RUN install_packages cabextract xfonts-utils \
     && wget -nv http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb \
