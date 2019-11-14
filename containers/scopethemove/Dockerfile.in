@@ -33,6 +33,7 @@ COPY --from=build /wiring/ /
 RUN [ "cross-build-start" ]
 
 RUN install_packages \
+     binutils \
      cron \
      curl \
      dbus \
