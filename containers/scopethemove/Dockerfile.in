@@ -72,10 +72,15 @@ RUN set -e \
     && ldconfig \
     && pip3 install --upgrade pip wheel
 
-# we need to particle-cli to update photon bootloaders. We also need to patch it for python3
-RUN if [ "$(dpkg --print-architecture)" = "armhf" ]; then wget https://particle.io/install-cli \
-    && sed -i "s\python\python3\g" install-cli \
-    && bash < install-cli; else echo 'skipping particle cli for unsupported architecture'; fi
+# we need to particle-cli to update photon bootloaders. We are using a zipped version since the offical
+# installer has many problems. We also need to fool the autoupdate feature
+RUN if [ "$(dpkg --print-architecture)" = "armhf" ]; then cd /root/ \
+    && wget https://download.motesque.com/particle_cli_motesque_worked.tar.gz \
+    && tar -xzf particle_cli_motesque_worked.tar.gz --strip-components=1 \
+    && rm particle_cli_motesque_worked.tar.gz \
+    && chmod +x /root/bin/particle \
+    && touch -a -m -t 203101180813.09 /root/.particle/autoupdate ; fi
+
 
 # install all neccessary python packages. --no-deps ensures every version is pinned
 COPY ./requirements.txt ./requirements-crossbar.txt /tmp/
