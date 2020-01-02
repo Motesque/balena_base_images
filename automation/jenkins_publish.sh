@@ -9,7 +9,7 @@ cat /var/lib/jenkins/dockerhub.credentials | cut -d: -f2 | docker login -u ${doc
 echo "     Publishing container $CONTAINER"
 cd $WORKSPACE/containers/$CONTAINER
 DOCKER_TAG=$(grep FROM Dockerfile | tail -n 1 | cut -d : -f 2)-git${REVISION}
-platforms=( "raspberrypi3" "amd64" )
+platforms=( "raspberrypi3" "amd64" "imx8m-var-dart")
 for pl in "${platforms[@]}"
 do
     echo "docker push motesque/${CONTAINER}-$pl-debian:${DOCKER_TAG}"
