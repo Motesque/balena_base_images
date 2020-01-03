@@ -7,7 +7,7 @@ FROM balenalib/$ARCH-debian:stretch-build-20190215 as build
 ARG ARCH
 ENV PYTHON_VERSION=3.6.8
 
-
+RUN [ "cross-build-start" ]
 # Compile wiring library for i2c led control
 RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && wget -nv https://download.motesque.com/wiringPi-96344ff.tar.gz \
@@ -17,7 +17,7 @@ RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && DESTDIR=/wiring/usr make \
     && DESTDIR=/wiring/usr make install
 
-
+RUN [ "cross-build-end" ]
 
 #-------------------------
 # Runtime Stage
@@ -62,6 +62,8 @@ RUN install_packages cabextract xfonts-utils \
     && dpkg -i ttf-mscorefonts-installer_3.6_all.deb \
     && rm ttf-mscorefonts-installer_3.6_all.deb
 
+RUN [ "cross-build-start" ]
+
 # install python 3.x for this platform
 RUN set -e \
     && wget -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
@@ -69,6 +71,7 @@ RUN set -e \
     && rm Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && ldconfig \
     && pip3 install --upgrade pip wheel
+
 
 # we need to particle-cli to update photon bootloaders. We are using a zipped version since the offical
 # installer has many problems. We also need to fool the autoupdate feature
@@ -88,11 +91,9 @@ RUN pip3 install  \
         --extra-index-url https://pypi.org/simple \
         --no-cache-dir \
         --no-deps \
-        --platform linux_armv7l \
-        --target /usr/local/lib/python3.6/site-packages \
         --find-links . -r /tmp/requirements.txt  \
         && pip3 check
-
+RUN [ "cross-build-end" ]
 
 
 # 2nd tier dependecies
