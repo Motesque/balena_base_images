@@ -89,7 +89,7 @@ RUN pip3 install  \
         --no-cache-dir \
         --no-deps \
         --platform linux_armv7l \
-        --target /usr/local/lib/python3.6/site-packages
+        --target /usr/local/lib/python3.6/site-packages \
         --find-links . -r /tmp/requirements.txt  \
         && pip3 check
 
