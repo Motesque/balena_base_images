@@ -33,7 +33,6 @@ RUN set -e \
 
 COPY ./requirements.txt /tmp/
 RUN pip3 install  \
-        --platform armv7l \
         --trusted-host pypi.motesque.com \
         --index-url http://pypi.motesque.com:8181 \
         --extra-index-url https://pypi.org/simple \
