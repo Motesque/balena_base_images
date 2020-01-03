@@ -3,15 +3,15 @@ version: 0.2
 env:
   variables:
     MOTESQUE_ARCH: "raspberrypi3"
-    DOCKER_USERNAME: tlangmo
-    DOCKER_PASSWORD: 5a06081f-af33-4060-bd6b-181ce8032850
+  #  DOCKER_USERNAME: tlangmo
+  #  DOCKER_PASSWORD: 5a06081f-af33-4060-bd6b-181ce8032850
     # key: "value"
   #parameter-store:
      # key: "value"
      # key: "value"
-  #secrets-manager:
-  #    DOCKER_USERNAME: dockerhub/login:dockerhub_username
-  #    DOCKER_PASSWORD: dockerhub/login:dockerhub_username
+  secrets-manager:
+      DOCKER_USERNAME: dockerhub/login:dockerhub_username
+      DOCKER_PASSWORD: dockerhub/login:dockerhub_password
   #exported-variables:
      # - variable
      # - variable
@@ -34,16 +34,14 @@ phases:
     commands:
       - chmod +x automation/jenkins_build.sh
       - ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove
-    #  - ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove_db
-      #- ./automation/jenkins_build.sh $MOTESQUE_ARCH ottobock
-      - uname -a
-      - docker images
+      - ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove_db
+      - ./automation/jenkins_build.sh $MOTESQUE_ARCH ottobock
   post_build:
     commands:
       - chmod +x automation/jenkins_publish.sh
       - ./automation/jenkins_publish.sh $MOTESQUE_ARCH scopethemove
-     # - ./automation/jenkins_publish.sh $MOTESQUE_ARCH scopethemove_db
-      #- ./automation/jenkins_publish.sh $MOTESQUE_ARCH ottobock
+      - ./automation/jenkins_publish.sh $MOTESQUE_ARCH scopethemove_db
+      - ./automation/jenkins_publish.sh $MOTESQUE_ARCH ottobock
 #reports:
   #report-name-or-arn:
     #files:

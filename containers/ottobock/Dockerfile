@@ -23,6 +23,7 @@ RUN install_packages cabextract xfonts-utils \
     && dpkg -i ttf-mscorefonts-installer_3.6_all.deb \
     && rm ttf-mscorefonts-installer_3.6_all.deb
 
+RUN [ "cross-build-start" ]
 RUN set -e \
     && wget -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && tar -zxf Python-$PYTHON_VERSION.linux-$ARCH.tar.gz  --strip-components=1 \
@@ -41,3 +42,4 @@ RUN pip3 install  \
         && pip3 check
 
 RUN dpkg-query -W -f '${binary:Package},${Version},${binary:Summary}\n' > /usr/local/lib/_stage_debian_packages.csv
+RUN [ "cross-build-end" ]

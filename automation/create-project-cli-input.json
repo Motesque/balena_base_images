@@ -1,5 +1,5 @@
 {
-    "name": "balena-base-images-raspberrypi3",
+    "name": "balena-base-images",
     "description": "Builds and published the base images we need for balena deployment",
     "source": {
         "type": "GITHUB",
@@ -8,7 +8,7 @@
         "gitSubmodulesConfig": {
             "fetchSubmodules": false
         },
-       "buildspec": "buildspec-raspberrypi3.yml",
+       "buildspec": "buildspec.yml",
         "reportBuildStatus": false,
         "insecureSsl": false
     },
@@ -26,16 +26,22 @@
             "LOCAL_DOCKER_LAYER_CACHE"
         ]
     },
-   "environment": {
-        "type": "ARM_CONTAINER",
-        "image": "aws/codebuild/amazonlinux2-aarch64-standard:1.0",
+    "environment": {
+        "type": "LINUX_CONTAINER",
+        "image": "aws/codebuild/standard:2.0",
         "computeType": "BUILD_GENERAL1_LARGE",
-        "environmentVariables": [],
+        "environmentVariables": [
+            {
+                "name": "MOTESQUE_ARCH",
+                "value": "raspberrypi3",
+                "type": "PLAINTEXT"
+            }
+        ],
         "privilegedMode": true,
         "imagePullCredentialsType": "CODEBUILD"
     },
     "serviceRole": "arn:aws:iam::473689091316:role/service-role/codebuild-build-service-role",
-   "timeoutInMinutes": 60,
+    "timeoutInMinutes": 480,
     "queuedTimeoutInMinutes": 480,
     "encryptionKey": "arn:aws:kms:eu-central-1:473689091316:alias/aws/s3",
     "tags": [
