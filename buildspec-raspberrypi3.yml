@@ -33,7 +33,7 @@ phases:
     commands:
       - chmod +x automation/jenkins_build.sh
       - ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove
-      - ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove_db
+    #  - ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove_db
       #- ./automation/jenkins_build.sh $MOTESQUE_ARCH ottobock
       - uname -a
       - docker images
@@ -41,7 +41,7 @@ phases:
     commands:
       - chmod +x automation/jenkins_publish.sh
       - ./automation/jenkins_publish.sh $MOTESQUE_ARCH scopethemove
-      - ./automation/jenkins_publish.sh $MOTESQUE_ARCH scopethemove_db
+     # - ./automation/jenkins_publish.sh $MOTESQUE_ARCH scopethemove_db
       #- ./automation/jenkins_publish.sh $MOTESQUE_ARCH ottobock
 #reports:
   #report-name-or-arn:

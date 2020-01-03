@@ -11,6 +11,3 @@ docker build -t motesque/codebuild-$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TA
 
 #echo "Saving Docker Base Image for '$THIS_CONTAINER' - '$THIS_ARCH'"
 #docker save motesque/codebuild-$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TAG} | gzip > motesque-codebuild-$THIS_CONTAINER-$THIS_ARCH-debian_${DOCKER_TAG}.tar.gz
-
-echo "Pushing Docker Base Image for '$THIS_CONTAINER' - '$THIS_ARCH'"
-docker push motesque/codebuild-$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TAG}

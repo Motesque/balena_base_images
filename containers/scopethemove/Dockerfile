@@ -87,7 +87,10 @@ RUN pip3 install  \
         --index-url http://pypi.motesque.com:8181 \
         --extra-index-url https://pypi.org/simple \
         --no-cache-dir \
-        --no-deps --find-links . -r /tmp/requirements.txt  \
+        --no-deps \
+        --platform linux_armv7l \
+        --target /usr/local/lib/python3.6/site-packages
+        --find-links . -r /tmp/requirements.txt  \
         && pip3 check
 
 
