@@ -2,7 +2,6 @@ ARG ARCH
 FROM balenalib/$ARCH-debian:stretch-build-20190215 as build
 ARG ARCH
 
-RUN [ "cross-build-start" ]
 
 RUN install_packages \
     autotools-dev \
@@ -51,7 +50,6 @@ RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && DESTDIR=/wiring/usr make \
     && DESTDIR=/wiring/usr make install
 
-RUN [ "cross-build-end" ]
 
 #-------------------------
 # Runtime Image
@@ -62,7 +60,6 @@ ENV PYTHON_VERSION=3.6.8
 
 COPY --from=build /wiring/ /
 
-RUN [ "cross-build-start" ]
 
 RUN install_packages wget libnspr4 icu-devtools
 
@@ -85,5 +82,3 @@ RUN pip3 install  \
         --no-cache-dir \
         --no-deps --find-links . -r /tmp/requirements.txt  \
         && pip3 check
-
-RUN [ "cross-build-end" ]
