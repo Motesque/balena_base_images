@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    MOTESQUE_ARCH: "amd64"
+    MOTESQUE_ARCH: "raspberrypi3"
    # DOCKER_USERNAME: tlangmo
    # DOCKER_PASSWORD: 5a06081f-af33-4060-bd6b-181ce8032850
     # key: "value"

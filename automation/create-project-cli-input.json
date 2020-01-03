@@ -8,11 +8,12 @@
         "gitSubmodulesConfig": {
             "fetchSubmodules": false
         },
+       "buildspec": "buildspec-raspberrypi3.yml",
         "reportBuildStatus": false,
         "insecureSsl": false
     },
     "secondarySources": [],
-    "sourceVersion": "master",
+    "sourceVersion": "codebuild",
     "secondarySourceVersions": [],
     "artifacts": {
         "type": "NO_ARTIFACTS"
