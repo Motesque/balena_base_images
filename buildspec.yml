@@ -11,7 +11,7 @@ env:
      # key: "value"
   secrets-manager:
       DOCKER_USERNAME: dockerhub/login:dockerhub_username
-      DOCKER_PASSWORD: dockerhub/login:dockerhub_password
+      DOCKER_PASSWORD: dockerhub/login:dockerhub_token
   #exported-variables:
      # - variable
      # - variable
