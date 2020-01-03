@@ -1,0 +1,63 @@
+version: 0.2
+
+env:
+  variables:
+    MOTESQUE_ARCH: "amd64"
+   # DOCKER_USERNAME: tlangmo
+   # DOCKER_PASSWORD: 5a06081f-af33-4060-bd6b-181ce8032850
+    # key: "value"
+  #parameter-store:
+     # key: "value"
+     # key: "value"
+  secrets-manager:
+      DOCKER_USERNAME: dockerhub/login:dockerhub_username
+      DOCKER_PASSWORD: dockerhub/login:dockerhub_username
+  #exported-variables:
+     # - variable
+     # - variable
+  #git-credential-helper: yes
+  #https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-env-vars.html
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+    commands:
+      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2&
+      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+  pre_build:
+    commands:
+      - echo Logging in to Docker Hub...
+      - echo $DOCKER_PASSWORD | docker login  -u $DOCKER_USERNAME --password-stdin
+     # - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  build:
+    commands:
+      - chmod +x automation/jenkins_build.sh
+      - ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove
+      - ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove_db
+      - ./automation/jenkins_build.sh $MOTESQUE_ARCH ottobock
+      - docker images
+  post_build:
+    commands:
+      - chmod +x automation/jenkins_publish.sh
+      - ./automation/jenkins_publish.sh $MOTESQUE_ARCH scopethemove
+      - ./automation/jenkins_publish.sh $MOTESQUE_ARCH scopethemove_db
+      - ./automation/jenkins_publish.sh $MOTESQUE_ARCH ottobock
+#reports:
+  #report-name-or-arn:
+    #files:
+      # - location
+      # - location
+    #base-directory: location
+    #discard-paths: yes
+    #file-format: JunitXml | CucumberJson
+#artifacts:
+  #files:
+    # - location
+    # - location
+  #name: $(date +%Y-%m-%d)
+  #discard-paths: yes
+  #base-directory: location
+#cache:
+  #paths:
+    # - paths

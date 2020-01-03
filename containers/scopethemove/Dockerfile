@@ -7,7 +7,6 @@ FROM balenalib/$ARCH-debian:stretch-build-20190215 as build
 ARG ARCH
 ENV PYTHON_VERSION=3.6.8
 
-RUN [ "cross-build-start" ]
 
 # Compile wiring library for i2c led control
 RUN mkdir -p /usr/tmp && cd /usr/tmp \
@@ -18,7 +17,6 @@ RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && DESTDIR=/wiring/usr make \
     && DESTDIR=/wiring/usr make install
 
-RUN [ "cross-build-end" ]
 
 
 #-------------------------
@@ -30,7 +28,7 @@ ENV PYTHON_VERSION=3.6.8
 
 COPY --from=build /wiring/ /
 
-RUN [ "cross-build-start" ]
+
 
 RUN install_packages \
      binutils \
@@ -101,4 +99,3 @@ RUN install_packages \
        rsyslog  \
        rsyslog-gnutls
 
-RUN [ "cross-build-end" ]

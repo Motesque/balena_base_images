@@ -1,17 +1,10 @@
-# carry over the revision as it is specified in the jenkins_build.sh
-REVISION=$(git log |  head -n 1 | cut -f2 -d ' ' | cut -c1-7)
-CONTAINER=$1
+#!/bin/bash
+THIS_ARCH=$1
+THIS_CONTAINER=$2
 
+echo "Building Docker Base Image for '$THIS_CONTAINER' - '$THIS_ARCH'"
 
-dockerUsr=`cat /var/lib/jenkins/dockerhub.credentials | cut -d: -f1`
-cat /var/lib/jenkins/dockerhub.credentials | cut -d: -f2 | docker login -u ${dockerUsr} --password-stdin
-
-echo "     Publishing container $CONTAINER"
-cd $WORKSPACE/containers/$CONTAINER
-DOCKER_TAG=$(grep FROM Dockerfile | tail -n 1 | cut -d : -f 2)-git${REVISION}
-platforms=( "raspberrypi3" "amd64" "imx8m-var-dart")
-for pl in "${platforms[@]}"
-do
-    echo "docker push motesque/${CONTAINER}-$pl-debian:${DOCKER_TAG}"
-    docker push motesque/${CONTAINER}-$pl-debian:${DOCKER_TAG}
-done
+# use the last entry as the TAG
+DOCKER_TAG=$(grep FROM containers/$THIS_CONTAINER/Dockerfile | tail -n 1 | cut -d : -f 2)-git$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION  | cut -c1-7)
+echo "Pushing Docker Base Image for '$THIS_CONTAINER' - '$THIS_ARCH'"
+docker push motesque/codebuild-$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TAG}

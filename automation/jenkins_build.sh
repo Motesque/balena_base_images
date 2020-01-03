@@ -1,28 +1,13 @@
 #!/bin/bash
-ARCH=$1
-CONTAINER=$2
-REVISION=$(git log |  head -n 1 | cut -f2 -d ' ' | cut -c1-7)
-if [[ $WORKSPACE == "" ]]; then
-    echo "ERROR: No WORKSPACE set"
-    exit 1
-fi
+THIS_ARCH=$1
+THIS_CONTAINER=$2
 
-set -e
-mkdir -p $WORKSPACE/artifacts
-cd $WORKSPACE/containers/$CONTAINER
-
-echo "Building Docker Base Image for '$CONTAINER' - '$ARCH'"
-# remove the crossbuild commands if needed
-if [[ $ARCH == "amd64" ]]; then
-    cat Dockerfile.in  | sed -e 's/RUN \[ "cross-build-start" \]//g' -e 's/RUN \[ \"cross-build-end\" \]//g' > Dockerfile
-else
-    cp Dockerfile.in Dockerfile
-fi
+echo "Building Docker Base Image for '$THIS_CONTAINER' - '$THIS_ARCH'"
 
 # use the last entry as the TAG
-DOCKER_TAG=$(grep FROM Dockerfile | tail -n 1 | cut -d : -f 2)-git${REVISION}
-docker build -t motesque/$CONTAINER-$ARCH-debian:${DOCKER_TAG} --build-arg ARCH=$ARCH  .
+DOCKER_TAG=$(grep FROM containers/$THIS_CONTAINER/Dockerfile | tail -n 1 | cut -d : -f 2)-git$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION  | cut -c1-7)
+echo "DockerTag: $DOCKER_TAG"
+docker build -t motesque/codebuild-$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TAG} --build-arg ARCH=$THIS_ARCH  containers/$THIS_CONTAINER/
 
-# extract the list with the installed packages
-mkdir -p $WORKSPACE/validation/$CONTAINER
-docker run --rm  -t motesque/$CONTAINER-$ARCH-debian:${DOCKER_TAG} pip3 freeze > $WORKSPACE/validation/${CONTAINER}/installed_packages_${ARCH}.txt
+echo "Pushing Docker Base Image for '$THIS_CONTAINER' - '$THIS_ARCH'"
+docker push motesque/codebuild-$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TAG}

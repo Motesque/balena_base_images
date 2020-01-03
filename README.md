@@ -1,10 +1,7 @@
-Execute build script to build docker images for all supported architectures
+# Automatically build and publish base images for balena managed devices
 
-Publish example
----------------
-```
-docker login # tlangmo
-docker push motesque/raspberrypi3-scopethemove:stretch-20180602_18_6_8
-```
+## AWS CodeBuild
 
-
+To manually try:
+https://aws.amazon.com/blogs/devops/announcing-local-build-support-for-aws-codebuild/
+```./codebuild_build.sh -i aws/codebuild/standard:2.0 -b buildspec-rpi3.yml -a .```

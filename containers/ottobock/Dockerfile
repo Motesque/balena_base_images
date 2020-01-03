@@ -3,7 +3,6 @@ FROM balenalib/$ARCH-debian:stretch-run-20190215
 ARG ARCH
 ENV PYTHON_VERSION=3.6.8
 
-RUN [ "cross-build-start" ]
 
 RUN install_packages \
     cron \
@@ -41,5 +40,3 @@ RUN pip3 install  \
         && pip3 check
 
 RUN dpkg-query -W -f '${binary:Package},${Version},${binary:Summary}\n' > /usr/local/lib/_stage_debian_packages.csv
-
-RUN [ "cross-build-end" ]
