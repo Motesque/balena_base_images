@@ -1,6 +1,6 @@
 {
     "name": "balena-base-images",
-    "description": "Builds and published the base images we need for balena deployment",
+    "description": "Builds and publishes the base images we need for balena deployment",
     "source": {
         "type": "GITHUB",
         "location": "https://github.com/Motesque/balena_base_images.git",
@@ -35,13 +35,7 @@
                 "name": "MOTESQUE_ARCH",
                 "value": "raspberrypi3",
                 "type": "PLAINTEXT"
-            },
-            {
-                "name": "MOTESQUE_CONTAINER",
-                "value": "scopethemove",
-                "type": "PLAINTEXT"
             }
-
         ],
         "privilegedMode": true,
         "imagePullCredentialsType": "CODEBUILD"

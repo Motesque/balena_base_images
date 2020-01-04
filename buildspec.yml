@@ -33,15 +33,15 @@ phases:
   build:
     commands:
       - chmod +x automation/jenkins_build.sh
-      #- ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove
-     # - ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove_db
+      - ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove
+      - ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove_db
       - ./automation/jenkins_build.sh $MOTESQUE_ARCH ottobock
 
   post_build:
     commands:
       - chmod +x automation/jenkins_artifact.sh
-      #- ./automation/jenkins_artifact.sh $MOTESQUE_ARCH scopethemove
-      #- ./automation/jenkins_artifact.sh $MOTESQUE_ARCH scopethemove_db
+      - ./automation/jenkins_artifact.sh $MOTESQUE_ARCH scopethemove
+      - ./automation/jenkins_artifact.sh $MOTESQUE_ARCH scopethemove_db
       - ./automation/jenkins_artifact.sh $MOTESQUE_ARCH ottobock
 #reports:
   #report-name-or-arn:
