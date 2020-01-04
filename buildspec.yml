@@ -55,6 +55,7 @@ phases:
 artifacts:
   files:
      - /var/docker-images/*
+  name: docker-images-${CODEBUILD_RESOLVED_SOURCE_VERSION}.tar.gz
   discard-paths: yes
 #cache:
   #paths:
