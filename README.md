@@ -8,3 +8,4 @@ https://aws.amazon.com/blogs/devops/announcing-local-build-support-for-aws-codeb
 aws codebuild create-project --cli-input-json file://automation/create-project-cli-input.json\
 ```
 https://github.com/aws-samples/aws-codebuild-custom-raspbian-builder
+https://docs.aws.amazon.com/codepipeline/latest/userguide/pipelines-create.html#pipelines-create-cli

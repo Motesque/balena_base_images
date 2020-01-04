@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    MOTESQUE_ARCH: "amd64"
+    MOTESQUE_ARCH: "raspberrypi3"
     MOTESQUE_CONTAINER: "scopethemove"
     # key: "value"
   #parameter-store:
@@ -49,7 +49,7 @@ phases:
 artifacts:
     files:
       - /var/docker-images/*
-    name: docker-images-git$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION  | cut -c1-7)
+    name: balena-baseimages-git$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION  | cut -c1-7)
     discard-paths: yes
 
 #cache:
