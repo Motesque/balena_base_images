@@ -43,7 +43,7 @@ phases:
       #- ./automation/jenkins_artifact.sh $MOTESQUE_ARCH scopethemove
       #- ./automation/jenkins_artifact.sh $MOTESQUE_ARCH scopethemove_db
       #- ./automation/jenkins_artifact.sh $MOTESQUE_ARCH ottobock
-      - mkdir -p /var/docker-images && touch /var/docker-images/mine.tar.gz
+      - mkdir -p /var/docker-images && touch /var/docker-images/tobi.txt
 #reports:
   #report-name-or-arn:
     #files:
@@ -53,10 +53,10 @@ phases:
     #discard-paths: yes
     #file-format: JunitXml | CucumberJson
 artifacts:
-  files:
-     - /var/docker-images/*
-  name: docker-images-${CODEBUILD_RESOLVED_SOURCE_VERSION}.tar.gz
-  discard-paths: no
+    files:
+      - /var/docker-images/*
+    name: my-artifact
+
 #cache:
   #paths:
     # - paths
