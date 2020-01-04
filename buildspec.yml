@@ -35,13 +35,15 @@ phases:
       - chmod +x automation/jenkins_build.sh
       #- ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove
      # - ./automation/jenkins_build.sh $MOTESQUE_ARCH scopethemove_db
-      - ./automation/jenkins_build.sh $MOTESQUE_ARCH ottobock
+      #- ./automation/jenkins_build.sh $MOTESQUE_ARCH ottobock
+
   post_build:
     commands:
       - chmod +x automation/jenkins_artifact.sh
       #- ./automation/jenkins_artifact.sh $MOTESQUE_ARCH scopethemove
       #- ./automation/jenkins_artifact.sh $MOTESQUE_ARCH scopethemove_db
-      - ./automation/jenkins_artifact.sh $MOTESQUE_ARCH ottobock
+      #- ./automation/jenkins_artifact.sh $MOTESQUE_ARCH ottobock
+      - mkdir -p /var/docker-images && touch /var/docker-images/mine.tar.gz
 #reports:
   #report-name-or-arn:
     #files:
@@ -50,13 +52,10 @@ phases:
     #base-directory: location
     #discard-paths: yes
     #file-format: JunitXml | CucumberJson
-#artifacts:
-  #files:
-    # - location
-    # - location
-  #name: $(date +%Y-%m-%d)
-  #discard-paths: yes
-  #base-directory: location
+artifacts:
+  files:
+     - /var/docker-images/
+  discard-paths: yes
 #cache:
   #paths:
     # - paths
