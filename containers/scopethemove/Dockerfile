@@ -7,7 +7,7 @@ FROM balenalib/$ARCH-debian:stretch-build-20190215 as build
 ARG ARCH
 ENV PYTHON_VERSION=3.6.8
 
-RUN [ "cross-build-start" ]
+RUN ["/bin/sh", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 # Compile wiring library for i2c led control
 RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && wget -nv https://download.motesque.com/wiringPi-96344ff.tar.gz \
@@ -16,8 +16,7 @@ RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && mkdir -p /wiring/usr/lib \
     && DESTDIR=/wiring/usr make \
     && DESTDIR=/wiring/usr make install
-
-RUN [ "cross-build-end" ]
+RUN ["/bin/sh", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 
 #-------------------------
 # Runtime Stage
@@ -62,7 +61,7 @@ RUN install_packages cabextract xfonts-utils \
     && dpkg -i ttf-mscorefonts-installer_3.6_all.deb \
     && rm ttf-mscorefonts-installer_3.6_all.deb
 
-RUN [ "cross-build-start" ]
+RUN ["/bin/sh", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 
 # install python 3.x for this platform
 RUN set -e \
@@ -93,7 +92,7 @@ RUN pip3 install  \
         --no-deps \
         --find-links . -r /tmp/requirements.txt  \
         && pip3 check
-RUN [ "cross-build-end" ]
+RUN ["/bin/sh", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 
 
 # 2nd tier dependecies
