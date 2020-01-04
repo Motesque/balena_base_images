@@ -55,7 +55,8 @@ phases:
 artifacts:
     files:
       - /var/docker-images/*
-    name: my-artifact
+    name: docker-images-git$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION  | cut -c1-7)
+    discard-paths: yes
 
 #cache:
   #paths:
