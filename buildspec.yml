@@ -56,7 +56,7 @@ artifacts:
   files:
      - /var/docker-images/*
   name: docker-images-${CODEBUILD_RESOLVED_SOURCE_VERSION}.tar.gz
-  discard-paths: yes
+  discard-paths: no
 #cache:
   #paths:
     # - paths
