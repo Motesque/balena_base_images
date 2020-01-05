@@ -24,7 +24,7 @@ RUN install_packages \
 ##   - https://github.com/apache/couchdb-pkg
 ##   - https://github.com/apache/couchdb-docker/issues/54
 
-RUN [ "cross-build-start" ]
+RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 # compile patched CouchDB SpiderMonkey
 RUN cd  /tmp \
     && git clone https://github.com/apache/couchdb-pkg.git \
@@ -49,7 +49,7 @@ RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && mkdir -p /wiring/usr/lib \
     && DESTDIR=/wiring/usr make \
     && DESTDIR=/wiring/usr make install
-RUN [ "cross-build-end" ]
+RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 
 #-------------------------
 # Runtime Image
@@ -67,7 +67,7 @@ COPY --from=build  /tmp/apache-couchdb-2.3.0/rel/couchdb /usr/local/lib/couchdb
 COPY --from=build  /tmp/couchdb-pkg/js/couch-libmozjs185-1.0_1.8.5-1.0.0*.deb /usr/local/lib/couchdb/
 RUN apt-get install -f /usr/local/lib/couchdb/couch-libmozjs185-1.0_1.8.5-1.0.0*.deb
 
-RUN [ "cross-build-start" ]
+RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 RUN set -e \
     && wget -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && tar -zxf Python-$PYTHON_VERSION.linux-$ARCH.tar.gz  --strip-components=1 \
@@ -83,4 +83,4 @@ RUN pip3 install  \
         --no-cache-dir \
         --no-deps --find-links . -r /tmp/requirements.txt  \
         && pip3 check
-RUN [ "cross-build-end" ]
+RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]

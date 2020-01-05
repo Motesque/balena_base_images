@@ -3,7 +3,7 @@ version: 0.2
 env:
   variables:
     MOTESQUE_ARCH: "amd64"
-    MOTESQUE_CONTAINER: "scopethemove"
+    MOTESQUE_CONTAINER: "scopethemove_db"
     # key: "value"
   #parameter-store:
      # key: "value"
@@ -48,7 +48,7 @@ phases:
     #file-format: JunitXml | CucumberJson
 artifacts:
     files:
-      - /var/docker-images/*s
+      - /var/docker-images/*
     discard-paths: yes
 
 #cache:
