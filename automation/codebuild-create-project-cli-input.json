@@ -35,6 +35,11 @@
                 "name": "MOTESQUE_ARCH",
                 "value": "raspberrypi3",
                 "type": "PLAINTEXT"
+            },
+            {
+                "name": "MOTESQUE_CONTAINER",
+                "value": "scopethemove",
+                "type": "PLAINTEXT"
             }
         ],
         "privilegedMode": true,
