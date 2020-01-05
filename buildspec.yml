@@ -37,7 +37,7 @@ phases:
   post_build:
     commands:
       - chmod +x automation/jenkins_artifact.sh
-      - mkdir -p /var/docker-images/ && touch /var/docker-images/myimage-git$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION  | cut -c1-7).tar.gz
+      - mkdir -p /var/docker-images/ && touch /var/docker-images/myimage-$MOTESQUE_ARCH-$MOTESQUE_CONTAINER-git$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION  | cut -c1-7).tar.gz
       #- ./automation/jenkins_artifact.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
 #reports:
   #report-name-or-arn:
@@ -45,7 +45,7 @@ phases:
       # - location
       # - location
     #base-directory: location
-    #discard-paths: yes
+    #discard-paths: yess
     #file-format: JunitXml | CucumberJson
 artifacts:
     files:
