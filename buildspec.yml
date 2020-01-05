@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    MOTESQUE_ARCH: "raspberrypi3"
+    MOTESQUE_ARCH: "amd64"
     MOTESQUE_CONTAINER: "scopethemove"
     # key: "value"
   #parameter-store:
@@ -32,13 +32,12 @@ phases:
   build:
     commands:
       - chmod +x automation/jenkins_build.sh
-      #- ./automation/jenkins_build.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
+      - ./automation/jenkins_build.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
 
   post_build:
     commands:
       - chmod +x automation/jenkins_artifact.sh
-      - mkdir -p /var/docker-images/ && touch /var/docker-images/myimage-$MOTESQUE_ARCH-$MOTESQUE_CONTAINER-git$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION  | cut -c1-7).tar.gz
-      #- ./automation/jenkins_artifact.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
+      - ./automation/jenkins_artifact.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
 #reports:
   #report-name-or-arn:
     #files:
@@ -49,8 +48,7 @@ phases:
     #file-format: JunitXml | CucumberJson
 artifacts:
     files:
-      - /var/docker-images/*
-    #name: balena-baseimages-git$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION  | cut -c1-7)
+      - /var/docker-images/*s
     discard-paths: yes
 
 #cache:
