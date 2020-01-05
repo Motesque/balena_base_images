@@ -32,12 +32,13 @@ phases:
   build:
     commands:
       - chmod +x automation/jenkins_build.sh
-      - ./automation/jenkins_build.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
+      #- ./automation/jenkins_build.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
 
   post_build:
     commands:
       - chmod +x automation/jenkins_artifact.sh
-      - ./automation/jenkins_artifact.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
+      - mkdir -p /var/docker-images/ && touch /var/docker-images/myimage.tar.gz
+      #- ./automation/jenkins_artifact.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
 #reports:
   #report-name-or-arn:
     #files:
@@ -48,8 +49,8 @@ phases:
     #file-format: JunitXml | CucumberJson
 artifacts:
     files:
-      - /var/docker-images/*
-    name: balena-baseimages-git$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION  | cut -c1-7)
+      - /var/docker-images/myimage.tar.gz
+    #name: balena-baseimages-git$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION  | cut -c1-7)
     discard-paths: yes
 
 #cache:
