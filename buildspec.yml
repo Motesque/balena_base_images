@@ -8,9 +8,9 @@ env:
   #parameter-store:
      # key: "value"
      # key: "value"
-  #secrets-manager:
-     # DOCKER_USERNAME: dockerhub/login:dockerhub_username
-     # DOCKER_PASSWORD: dockerhub/login:dockerhub_token
+  secrets-manager:
+     DOCKER_USERNAME: dockerhub/login:dockerhub_username
+     DOCKER_PASSWORD: dockerhub/login:dockerhub_token
   #exported-variables:
      # - variable
      # - variable
@@ -37,7 +37,7 @@ phases:
   post_build:
     commands:
       - chmod +x automation/jenkins_artifact.sh
-      - ./automation/jenkins_artifact.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
+      - ./automation/jenkins_publish.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
 #reports:
   #report-name-or-arn:
     #files:
