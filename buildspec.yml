@@ -46,10 +46,10 @@ phases:
     #base-directory: location
     #discard-paths: yess
     #file-format: JunitXml | CucumberJson
-artifacts:
-    files:
-      - /var/docker-images/*
-    discard-paths: yes
+#artifacts:
+#    files:
+#      - /var/docker-images/*
+#    discard-paths: yes
 
 #cache:
   #paths:
