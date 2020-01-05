@@ -25,19 +25,19 @@ phases:
       - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2&
       - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
       - apt-get install -y qemu-system-arm qemu-user-static
-#  pre_build:
-#    commands:
-#      - echo $DOCKER_PASSWORD | docker login  -u $DOCKER_USERNAME --password-stdin
-#      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  pre_build:
+    commands:
+      - echo $DOCKER_PASSWORD | docker login  -u $DOCKER_USERNAME --password-stdin
+     # - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   build:
     commands:
       - chmod +x automation/jenkins_build.sh
-      - ./automation/jenkins_build.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
+     # - ./automation/jenkins_build.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
 
   post_build:
     commands:
       - chmod +x automation/jenkins_artifact.sh
-      - ./automation/jenkins_publish.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
+     # - ./automation/jenkins_publish.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
 #reports:
   #report-name-or-arn:
     #files:
