@@ -20,8 +20,7 @@
     },
     "secondaryArtifacts":[],
     "cache": {
-        "type": "NO_CACHE",
-        "location": "",
+        "type": "LOCAL",
         "modes": [
             "LOCAL_DOCKER_LAYER_CACHE"
         ]
@@ -29,7 +28,7 @@
     "environment": {
         "type": "LINUX_CONTAINER",
         "image": "aws/codebuild/standard:2.0",
-        "computeType": "BUILD_GENERAL1_LARGE",
+        "computeType": "BUILD_GENERAL1_SMALL",
         "environmentVariables": [
             {
                 "name": "MOTESQUE_ARCH",
@@ -46,7 +45,7 @@
         "imagePullCredentialsType": "CODEBUILD"
     },
     "serviceRole": "arn:aws:iam::473689091316:role/service-role/codebuild-build-service-role",
-    "timeoutInMinutes": 480,
+    "timeoutInMinutes": 60,
     "queuedTimeoutInMinutes": 480,
     "encryptionKey": "arn:aws:kms:eu-central-1:473689091316:alias/aws/s3",
     "tags": [

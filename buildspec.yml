@@ -28,7 +28,8 @@ phases:
   pre_build:
     commands:
       - echo $DOCKER_PASSWORD | docker login  -u $DOCKER_USERNAME --password-stdin
-     # - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      # pull previous container to allow layer cache
+      - docker pull motesque/$MOTESQUE_CONTAINER-$MOTESQUE_ARCH-debian:latest
   build:
     commands:
       - chmod +x automation/jenkins_build.sh
@@ -46,10 +47,10 @@ phases:
     #base-directory: location
     #discard-paths: yess
     #file-format: JunitXml | CucumberJson
-#artifacts:
-#    files:
-#      - /var/docker-images/*
-#    discard-paths: yes
+artifacts:
+    files:
+      - /var/docker-images/*
+    discard-paths: yes
 
 #cache:
   #paths:

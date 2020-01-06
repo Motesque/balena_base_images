@@ -7,7 +7,7 @@ Until we have a proper cloud formation script, the codebuild project and codepip
 to be created individually using the aws cli.
 
 ```
-aws codebuild create-project --cli-input-json file://automation/create-project-cli-input.json
+aws codebuild create-project --cli-input-json file://automation/codebuild-create-project-cli-input.json
 aws codepipeline create-pipeline --cli-input-json file://automation/codepipeline-create-pipeline-cli-input.json
 ```
 

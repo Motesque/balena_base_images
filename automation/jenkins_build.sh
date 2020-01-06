@@ -10,4 +10,4 @@ echo "DockerTag: $DOCKER_TAG"
 docker build -t motesque/$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TAG} --build-arg ARCH=$THIS_ARCH  containers/$THIS_CONTAINER/
 
 #echo "Saving Docker Base Image for '$THIS_CONTAINER' - '$THIS_ARCH'"
-#docker save motesque/codebuild-$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TAG} | gzip > motesque-codebuild-$THIS_CONTAINER-$THIS_ARCH-debian_${DOCKER_TAG}.tar.gz
+#docker save motesque/$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TAG} | gzip > motesque-$THIS_CONTAINER-$THIS_ARCH-debian_latest.tar.gz
