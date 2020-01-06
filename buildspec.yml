@@ -29,7 +29,7 @@ phases:
     commands:
       - echo $DOCKER_PASSWORD | docker login  -u $DOCKER_USERNAME --password-stdin
       # pull previous container to allow layer cache
-      - docker pull motesque/$MOTESQUE_CONTAINER-$MOTESQUE_ARCH-debian:latest || echo "Unable to pull latest image!"
+      - docker pull motesque/$MOTESQUE_CONTAINER-$MOTESQUE_ARCH-debian:latest || echo "Unable to pull latest image! This is ok..."
   build:
     commands:
       - chmod +x automation/jenkins_build.sh

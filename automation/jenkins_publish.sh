@@ -7,4 +7,5 @@ DOCKER_TAG=$(grep FROM containers/$THIS_CONTAINER/Dockerfile | tail -n 1 | cut -
 echo "Pushing Docker Base Image for '$THIS_CONTAINER' - '$THIS_ARCH'"
 docker push motesque/$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TAG}
 # push again with latest tag
+docker tag motesque/$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TAG} motesque/$THIS_CONTAINER-$THIS_ARCH-debian:latest
 docker push motesque/$THIS_CONTAINER-$THIS_ARCH-debian:latest
