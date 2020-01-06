@@ -11,5 +11,6 @@ echo "DockerTag: $DOCKER_TAG"
 docker pull motesque/$THIS_CONTAINER-$THIS_ARCH-debian:latest || echo "Unable to pull latest image! This is ok..."
 docker build -t motesque/$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TAG} --cache-from motesque/$THIS_CONTAINER-$THIS_ARCH-debian:latest --build-arg ARCH=$THIS_ARCH  containers/$THIS_CONTAINER/
 
+
 #echo "Saving Docker Base Image for '$THIS_CONTAINER' - '$THIS_ARCH'"
 #docker save motesque/$THIS_CONTAINER-$THIS_ARCH-debian:${DOCKER_TAG} | gzip > motesque-$THIS_CONTAINER-$THIS_ARCH-debian_latest.tar.gz
