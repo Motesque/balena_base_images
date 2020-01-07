@@ -1,0 +1,63 @@
+{
+    "name": "balena-base-images",
+    "description": "Builds and publishes the base images we need for balena deployment",
+    "source": {
+        "type": "GITHUB",
+        "location": "https://github.com/Motesque/balena_base_images.git",
+        "gitCloneDepth": 1,
+        "gitSubmodulesConfig": {
+            "fetchSubmodules": false
+        },
+       "buildspec": "buildspec.yml",
+        "reportBuildStatus": false,
+        "insecureSsl": false
+    },
+    "secondarySources": [],
+    "sourceVersion": "codebuild",
+    "secondarySourceVersions": [],
+    "artifacts": {
+        "type": "NO_ARTIFACTS"
+    },
+    "secondaryArtifacts":[],
+    "cache": {
+        "type": "LOCAL",
+        "modes": [
+            "LOCAL_DOCKER_LAYER_CACHE"
+        ]
+    },
+    "environment": {
+        "type": "LINUX_CONTAINER",
+        "image": "aws/codebuild/standard:2.0",
+        "computeType": "BUILD_GENERAL1_SMALL",
+        "environmentVariables": [
+            {
+                "name": "MOTESQUE_ARCH",
+                "value": "raspberrypi3",
+                "type": "PLAINTEXT"
+            },
+            {
+                "name": "MOTESQUE_CONTAINER",
+                "value": "scopethemove",
+                "type": "PLAINTEXT"
+            }
+        ],
+        "privilegedMode": true,
+        "imagePullCredentialsType": "CODEBUILD"
+    },
+    "serviceRole": "arn:aws:iam::473689091316:role/service-role/codebuild-build-service-role",
+    "timeoutInMinutes": 60,
+    "queuedTimeoutInMinutes": 480,
+    "encryptionKey": "arn:aws:kms:eu-central-1:473689091316:alias/aws/s3",
+    "tags": [
+    ],
+    "badgeEnabled": true,
+     "logsConfig": {
+        "cloudWatchLogs": {
+            "status": "ENABLED"
+        },
+        "s3Logs": {
+            "status": "DISABLED",
+            "encryptionDisabled": false
+        }
+    }
+}

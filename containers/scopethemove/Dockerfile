@@ -7,8 +7,7 @@ FROM balenalib/$ARCH-debian:stretch-build-20190215 as build
 ARG ARCH
 ENV PYTHON_VERSION=3.6.8
 
-RUN [ "cross-build-start" ]
-
+RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 # Compile wiring library for i2c led control
 RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && wget -nv https://download.motesque.com/wiringPi-96344ff.tar.gz \
@@ -17,9 +16,7 @@ RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && mkdir -p /wiring/usr/lib \
     && DESTDIR=/wiring/usr make \
     && DESTDIR=/wiring/usr make install
-
-RUN [ "cross-build-end" ]
-
+RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 
 #-------------------------
 # Runtime Stage
@@ -30,7 +27,7 @@ ENV PYTHON_VERSION=3.6.8
 
 COPY --from=build /wiring/ /
 
-RUN [ "cross-build-start" ]
+
 
 RUN install_packages \
      binutils \
@@ -64,6 +61,8 @@ RUN install_packages cabextract xfonts-utils \
     && dpkg -i ttf-mscorefonts-installer_3.6_all.deb \
     && rm ttf-mscorefonts-installer_3.6_all.deb
 
+RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
+
 # install python 3.x for this platform
 RUN set -e \
     && wget -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
@@ -71,6 +70,7 @@ RUN set -e \
     && rm Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && ldconfig \
     && pip3 install --upgrade pip wheel
+
 
 # we need to particle-cli to update photon bootloaders. We are using a zipped version since the offical
 # installer has many problems. We also need to fool the autoupdate feature
@@ -89,9 +89,10 @@ RUN pip3 install  \
         --index-url http://pypi.motesque.com:8181 \
         --extra-index-url https://pypi.org/simple \
         --no-cache-dir \
-        --no-deps --find-links . -r /tmp/requirements.txt  \
+        --no-deps \
+        --find-links . -r /tmp/requirements.txt  \
         && pip3 check
-
+RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 
 
 # 2nd tier dependecies
@@ -101,4 +102,3 @@ RUN install_packages \
        rsyslog  \
        rsyslog-gnutls
 
-RUN [ "cross-build-end" ]

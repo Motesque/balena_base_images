@@ -1,0 +1,272 @@
+{
+    "pipeline": {
+        "name": "pl-balena-base-images",
+        "roleArn": "arn:aws:iam::473689091316:role/service-role/pl-balena-base-images",
+        "artifactStore": {
+            "type": "S3",
+            "location": "codepipeline-eu-central-1-207475909194"
+        },
+        "stages": [
+            {
+                "name": "Source",
+                "actions": [
+                    {
+                        "name": "Source",
+                        "actionTypeId": {
+                            "category": "Source",
+                            "owner": "ThirdParty",
+                            "provider": "GitHub",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "Branch": "codebuild",
+                            "OAuthToken": "****",
+                            "Owner": "Motesque",
+                            "PollForSourceChanges": "true",
+                            "Repo": "balena_base_images"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "inputArtifacts": [],
+                        "region": "eu-central-1"
+                    }
+                ]
+            },
+            {
+                "name": "Build",
+                "actions": [
+                    {
+                        "name": "raspberrypi3-scopethemove",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "provider": "CodeBuild",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "EnvironmentVariables": "[{\"name\":\"MOTESQUE_ARCH\",\"value\":\"raspberrypi3\",\"type\":\"PLAINTEXT\"},{\"name\":\"MOTESQUE_CONTAINER\",\"value\":\"scopethemove\",\"type\":\"PLAINTEXT\"}]",
+                            "ProjectName": "balena-base-images"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "raspberrypi3-scopethemove-artifact"
+                            }
+                        ],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "region": "eu-central-1"
+                    },
+                    {
+                        "name": "raspberrypi3-scopetheove_db",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "provider": "CodeBuild",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "EnvironmentVariables": "[{\"name\":\"MOTESQUE_ARCH\",\"value\":\"raspberrypi3\",\"type\":\"PLAINTEXT\"},{\"name\":\"MOTESQUE_CONTAINER\",\"value\":\"scopethemove_db\",\"type\":\"PLAINTEXT\"}]",
+                            "ProjectName": "balena-base-images"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "raspberrypi3-scopetheove_db-artifact"
+                            }
+                        ],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "region": "eu-central-1"
+                    },
+                    {
+                        "name": "raspberrypi3-ottobock",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "provider": "CodeBuild",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "EnvironmentVariables": "[{\"name\":\"MOTESQUE_ARCH\",\"value\":\"raspberrypi3\",\"type\":\"PLAINTEXT\"},{\"name\":\"MOTESQUE_CONTAINER\",\"value\":\"ottobock\",\"type\":\"PLAINTEXT\"}]",
+                            "ProjectName": "balena-base-images"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "raspberrypi3-ottobock-artifact"
+                            }
+                        ],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "region": "eu-central-1"
+                    },
+                    {
+                        "name": "amd64-scopethemove",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "provider": "CodeBuild",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "EnvironmentVariables": "[{\"name\":\"MOTESQUE_ARCH\",\"value\":\"amd64\",\"type\":\"PLAINTEXT\"},{\"name\":\"MOTESQUE_CONTAINER\",\"value\":\"scopethemove\",\"type\":\"PLAINTEXT\"}]",
+                            "ProjectName": "balena-base-images"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "amd64-scopethemove-artifact"
+                            }
+                        ],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "region": "eu-central-1"
+                    },
+                    {
+                        "name": "amd64-scopethemove_db",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "provider": "CodeBuild",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "EnvironmentVariables": "[{\"name\":\"MOTESQUE_ARCH\",\"value\":\"amd64\",\"type\":\"PLAINTEXT\"},{\"name\":\"MOTESQUE_CONTAINER\",\"value\":\"scopethemove_db\",\"type\":\"PLAINTEXT\"}]",
+                            "ProjectName": "balena-base-images"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "amd64-scopethemove_db-artifact"
+                            }
+                        ],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "region": "eu-central-1"
+                    },
+                    {
+                        "name": "amd64-ottobock",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "provider": "CodeBuild",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "EnvironmentVariables": "[{\"name\":\"MOTESQUE_ARCH\",\"value\":\"amd64\",\"type\":\"PLAINTEXT\"},{\"name\":\"MOTESQUE_CONTAINER\",\"value\":\"ottobock\",\"type\":\"PLAINTEXT\"}]",
+                            "ProjectName": "balena-base-images"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "amd64-ottobock-artifact"
+                            }
+                        ],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "region": "eu-central-1"
+                    },
+                    {
+                        "name": "imx8m-var-dart-scopethemove",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "provider": "CodeBuild",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "EnvironmentVariables": "[{\"name\":\"MOTESQUE_ARCH\",\"value\":\"imx8m-var-dart\",\"type\":\"PLAINTEXT\"},{\"name\":\"MOTESQUE_CONTAINER\",\"value\":\"scopethemove\",\"type\":\"PLAINTEXT\"}]",
+                            "ProjectName": "balena-base-images"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "imx8m-var-dart-scopethemove-artifact"
+                            }
+                        ],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "region": "eu-central-1"
+                    },
+                    {
+                        "name": "imx8m-var-dart-scopethemove_db",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "provider": "CodeBuild",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "EnvironmentVariables": "[{\"name\":\"MOTESQUE_ARCH\",\"value\":\"imx8m-var-dart\",\"type\":\"PLAINTEXT\"},{\"name\":\"MOTESQUE_CONTAINER\",\"value\":\"scopethemove_db\",\"type\":\"PLAINTEXT\"}]",
+                            "ProjectName": "balena-base-images"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "imx8m-var-dart-scopethemove_db-artifact"
+                            }
+                        ],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "region": "eu-central-1"
+                    },
+                     {
+                        "name": "imx8m-var-dart-ottobock",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "provider": "CodeBuild",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "EnvironmentVariables": "[{\"name\":\"MOTESQUE_ARCH\",\"value\":\"imx8m-var-dart\",\"type\":\"PLAINTEXT\"},{\"name\":\"MOTESQUE_CONTAINER\",\"value\":\"ottobock\",\"type\":\"PLAINTEXT\"}]",
+                            "ProjectName": "balena-base-images"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "imx8m-var-dart-ottobock-artifact"
+                            }
+                        ],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "region": "eu-central-1"
+                    }
+                ]
+            }
+        ],
+        "version": 7
+    }
+}

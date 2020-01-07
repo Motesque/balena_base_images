@@ -1,0 +1,55 @@
+version: 0.2
+
+env:
+  variables:
+    MOTESQUE_ARCH: "amd64"
+    MOTESQUE_CONTAINER: "scopethemove_db"
+    # key: "value"
+  #parameter-store:
+     # key: "value"
+     # key: "value"
+  secrets-manager:
+     DOCKER_USERNAME: dockerhub/login:dockerhub_username
+     DOCKER_PASSWORD: dockerhub/login:dockerhub_token
+  #exported-variables:
+     # - variable
+     # - variable
+  #git-credential-helper: yes
+  #https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-env-vars.html
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+    commands:
+      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2&
+      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+      - apt-get install -y qemu-system-arm qemu-user-static
+  pre_build:
+    commands:
+      - echo $DOCKER_PASSWORD | docker login  -u $DOCKER_USERNAME --password-stdin
+  build:
+    commands:
+      - chmod +x automation/jenkins_build.sh
+      - ./automation/jenkins_build.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
+
+  post_build:
+    commands:
+      - chmod +x automation/jenkins_publish.sh
+      - ./automation/jenkins_publish.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
+#reports:
+  #report-name-or-arn:
+    #files:
+      # - location
+      # - location
+    #base-directory: location
+    #discard-paths: yess
+    #file-format: JunitXml | CucumberJson
+#artifacts:
+#    files:
+#      - /var/docker-images/*
+#    discard-paths: yes
+
+#cache:
+  #paths:
+    # - paths
