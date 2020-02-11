@@ -24,7 +24,7 @@ phases:
     commands:
       - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2&
       - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
-      - apt-get install -y qemu-system-arm qemu-user-static
+      - apt-get update && apt-get install -y qemu-system-arm qemu-user-static
   pre_build:
     commands:
       - echo $DOCKER_PASSWORD | docker login  -u $DOCKER_USERNAME --password-stdin
