@@ -1,5 +1,5 @@
 ARG ARCH
-FROM balenalib/$ARCH-debian:buster-build-20200207 as build
+FROM balenalib/$ARCH-debian:buster-build-20200115 as build
 ARG ARCH
 
 
@@ -54,7 +54,7 @@ RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 #-------------------------
 # Runtime Image
 #-------------------------
-FROM balenalib/$ARCH-debian:buster-run-20200207
+FROM balenalib/$ARCH-debian:buster-run-20200115
 ARG ARCH
 ENV PYTHON_VERSION=3.6.8
 

@@ -2,7 +2,7 @@
 # Build Stage
 #-------------------------
 ARG ARCH
-FROM balenalib/$ARCH-debian:buster-build-20200207 as build
+FROM balenalib/$ARCH-debian:buster-build-20200115 as build
 ARG ARCH
 ENV PYTHON_VERSION=3.6.8
 
@@ -20,7 +20,7 @@ RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 #-------------------------
 # Runtime Stage
 #-------------------------
-FROM balenalib/$ARCH-debian:buster-run-20200207
+FROM balenalib/$ARCH-debian:buster-run-20200115
 ARG ARCH
 ENV PYTHON_VERSION=3.6.8
 
@@ -38,7 +38,7 @@ RUN install_packages \
      htop \
      less  \
      libcairo2  \
-     libhdf5-100 \
+     libhdf5-103 \
      libopenjp2-7 \
      libopenblas-base \
      libpango-1.0-0  \
