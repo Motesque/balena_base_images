@@ -54,7 +54,7 @@ RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 #-------------------------
 # Runtime Image
 #-------------------------
-FROM balenalib/$ARCH-debian:stretch-run-20190215 
+FROM balenalib/$ARCH-debian:stretch-run-20190215
 ARG ARCH
 ENV PYTHON_VERSION=3.6.8
 
