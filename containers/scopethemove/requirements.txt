@@ -103,4 +103,7 @@ starlette==0.13.2
 h11==0.9.0
 httptools==0.1.1
 uvicorn==0.11.5
+sentry-sdk==0.14.2
+aiocontextvars==0.2.2
+httpx==0.13.1
 -r requirements-crossbar.txt
