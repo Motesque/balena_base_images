@@ -103,7 +103,20 @@ starlette==0.13.2
 h11==0.9.0
 httptools==0.1.1
 uvicorn==0.11.5
-sentry-sdk==0.14.2
-aiocontextvars==0.2.2
-httpx==0.13.1
+brotlipy==0.7.0
+certifi==2020.6.20
+chardet==3.0.4
+h11==0.9.0
+h2==3.2.0
+hpack==3.0.0
+hstspreload==2020.6.30
+httpcore==0.9.1
+hyperframe==5.2.0
+idna==2.10
+pycparser==2.20
+rfc3986==1.4.0
+sniffio==1.1.0
+urllib3==1.25.9
+sentry-sdk==0.16.0
+httpx==0.13.3
 -r requirements-crossbar.txt
