@@ -94,7 +94,6 @@ Werkzeug==0.16.0
 WTForms==2.2.1
 xmlrunner==1.7.7
 yarl==1.3.0
-dataclasses==0.7
 fastapi==0.54.1
 mock==4.0.2
 pydantic==1.5.1
@@ -107,8 +106,6 @@ hstspreload==2020.6.30
 httpcore==0.9.1
 rfc3986==1.4.0
 sniffio==1.1.0
-contextvars==2.4
-aiocontextvars==0.2.2
 -r requirements-crossbar.txt
 sentry-sdk==0.16.0
 httpx==0.13.3
