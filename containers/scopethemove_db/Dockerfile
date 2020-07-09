@@ -56,7 +56,7 @@ RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 #-------------------------
 FROM balenalib/$ARCH-debian:stretch-run-20190215
 ARG ARCH
-ENV PYTHON_VERSION=3.6.8
+ENV PYTHON_VERSION=3.8.2
 
 COPY --from=build /wiring/ /
 

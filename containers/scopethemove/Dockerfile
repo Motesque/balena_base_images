@@ -4,7 +4,7 @@
 ARG ARCH
 FROM balenalib/$ARCH-debian:stretch-build-20190215 as build
 ARG ARCH
-ENV PYTHON_VERSION=3.6.8
+ENV PYTHON_VERSION=3.8.2
 
 RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 # Compile wiring library for i2c led control
@@ -22,7 +22,7 @@ RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 #-------------------------
 FROM balenalib/$ARCH-debian:stretch-run-20190215
 ARG ARCH
-ENV PYTHON_VERSION=3.6.8
+ENV PYTHON_VERSION=3.8.2
 
 COPY --from=build /wiring/ /
 
@@ -55,9 +55,9 @@ RUN install_packages \
 
 # install microsoft contrib core fonts (Arial, Georgia etc). Needed for proper PDF reports
 RUN install_packages cabextract xfonts-utils \
-    && wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb \
-    && dpkg -i ttf-mscorefonts-installer_3.6_all.deb \
-    && rm ttf-mscorefonts-installer_3.6_all.deb
+    && wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.8_all.deb \
+    && dpkg -i ttf-mscorefonts-installer_3.8_all.deb \
+    && rm ttf-mscorefonts-installer_3.8_all.deb
 
 RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 
