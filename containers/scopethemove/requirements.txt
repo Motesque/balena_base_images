@@ -107,5 +107,5 @@ httpcore==0.9.1
 rfc3986==1.4.0
 sniffio==1.1.0
 -r requirements-crossbar.txt
-sentry-sdk==0.16.0
+sentry-sdk[flask]==0.16.0
 httpx==0.13.3
