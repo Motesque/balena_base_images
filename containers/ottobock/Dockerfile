@@ -1,5 +1,5 @@
 ARG ARCH
-FROM balenalib/$ARCH-debian:stretch-run-20190215
+FROM balenalib/$ARCH-debian:buster-run
 ARG ARCH
 ENV PYTHON_VERSION=3.8.2
 

@@ -1,5 +1,5 @@
 ARG ARCH
-FROM balenalib/$ARCH-debian:stretch-build-20190215 as build
+FROM balenalib/$ARCH-debian:buster-build as build
 ARG ARCH
 
 
@@ -54,7 +54,7 @@ RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 #-------------------------
 # Runtime Image
 #-------------------------
-FROM balenalib/$ARCH-debian:stretch-run-20190215
+FROM balenalib/$ARCH-debian:buster-run
 ARG ARCH
 ENV PYTHON_VERSION=3.8.2
 
