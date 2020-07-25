@@ -37,7 +37,7 @@ RUN install_packages \
      htop \
      less  \
      libcairo2  \
-     libhdf5-100 \
+     libhdf5-103 \
      libopenjp2-7 \
      libopenblas-base \
      libpango-1.0-0  \
