@@ -10,7 +10,7 @@ RUN install_packages \
     erlang \
     git \
     libnspr4-dev \
-    lsb-core  \
+    lsb-release  \
     pkg-kde-tools  \
     zip
 
