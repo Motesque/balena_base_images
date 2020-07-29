@@ -49,7 +49,7 @@ RUN install_packages \
      ntp \
      openssl  \
      openssh-client \
-     pkg_config \
+     pkg-config \
      usbutils \
      vim \
      wget \
