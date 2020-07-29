@@ -37,6 +37,7 @@ RUN install_packages \
      htop \
      less  \
      libcairo2  \
+     libcairo2-dev  \
      libhdf5-103 \
      libopenjp2-7 \
      libopenblas-base \
@@ -48,6 +49,7 @@ RUN install_packages \
      ntp \
      openssl  \
      openssh-client \
+     pkg_config \
      usbutils \
      vim \
      wget \
