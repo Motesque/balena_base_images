@@ -83,8 +83,8 @@ RUN if [ "$(dpkg --print-architecture)" = "armhf" ]; then cd /root/ \
 # install all neccessary python packages. --no-deps ensures every version is pinned
 COPY ./requirements.txt ./requirements-crossbar.txt /tmp/
 RUN pip3 install  \
-        --trusted-host pypi.motesque.com \
-        --index-url http://pypi.motesque.com:8181 \
+        --trusted-host pypi-buster.motesque.com \
+        --index-url http://pypi-buster.motesque.com:8181 \
         --extra-index-url https://pypi.org/simple \
         --no-cache-dir \
         --no-deps \
