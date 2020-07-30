@@ -29,6 +29,7 @@ COPY --from=build /wiring/ /
 
 RUN install_packages \
      binutils \
+     build-essential \
      cron \
      curl \
      dbus \
