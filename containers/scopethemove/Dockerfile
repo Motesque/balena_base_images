@@ -2,7 +2,7 @@
 # Build Stage
 #-------------------------
 ARG ARCH
-FROM balenalib/$ARCH-debian:buster-build as build
+FROM balenalib/$ARCH-debian:buster-build-20200502 as build
 ARG ARCH
 ENV PYTHON_VERSION=3.8.2
 
@@ -20,7 +20,7 @@ RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 #-------------------------
 # Runtime Stage
 #-------------------------
-FROM balenalib/$ARCH-debian:buster-run
+FROM balenalib/$ARCH-debian:buster-run-20200502
 ARG ARCH
 ENV PYTHON_VERSION=3.8.2
 
