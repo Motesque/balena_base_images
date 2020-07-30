@@ -35,13 +35,16 @@ RUN install_packages \
      dbus \
      dfu-util \
      ffmpeg \
+     gfortran \
      htop \
      less  \
      libcairo2  \
      libcairo2-dev  \
      libhdf5-103 \
+     liblapack-dev \
      libopenjp2-7 \
      libopenblas-base \
+     libopenblas-dev \
      libpango-1.0-0  \
      libpangocairo-1.0-0  \
      net-tools \
