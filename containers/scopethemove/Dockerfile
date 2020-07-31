@@ -38,6 +38,7 @@ RUN install_packages \
      gfortran \
      htop \
      less  \
+     libdbus-1-3 \
      libcairo2  \
      libcairo2-dev  \
      libhdf5-103 \
