@@ -89,6 +89,7 @@ RUN if [ "$(dpkg --print-architecture)" = "armhf" ]; then cd /root/ \
 # install all neccessary python packages. --no-deps ensures every version is pinned
 # ...but Cython needs to be installed first.
 COPY ./requirements.txt ./requirements-crossbar.txt /tmp/
+RUN pip3 install --no-deps Cython==0.29.21
 RUN pip3 install  \
         --trusted-host pypi-buster.motesque.com \
         --index-url http://pypi-buster.motesque.com:8181 \
