@@ -3,6 +3,19 @@ FROM balenalib/$ARCH-debian:buster-run-20200502
 ARG ARCH
 ENV PYTHON_VERSION=3.8.2
 
+RUN install_packages \
+    cron \
+    less \
+    libcairo2  \
+    libpango-1.0-0  \
+    libpangocairo-1.0-0  \
+    libopenblas-base \
+    libopenjp2-7 \
+    nginx \
+    openssh-client \
+    vim \
+    wget
+
 RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 RUN set -e \
     && wget -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
@@ -19,23 +32,6 @@ RUN pip3 install  \
         --no-cache-dir \
         --no-deps --find-links . -r /tmp/requirements.txt  \
         && pip3 check
-
-FROM balenalib/$ARCH-debian:buster-run-20200502
-ARG ARCH
-ENV PYTHON_VERSION=3.8.2
-
-RUN install_packages \
-    cron \
-    less \
-    libcairo2  \
-    libpango-1.0-0  \
-    libpangocairo-1.0-0  \
-    libopenblas-base \
-    libopenjp2-7 \
-    nginx \
-    openssh-client \
-    vim \
-    wget
 
 # install microsoft contrib core fonts (Arial, Georgia etc). Needed for proper PDF reports
 RUN install_packages cabextract xfonts-utils \
