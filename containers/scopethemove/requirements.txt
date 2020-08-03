@@ -45,7 +45,7 @@ msgpack==0.6.2
 multidict==4.5.2
 netifaces==0.10.9
 numba==0.46.0
-numpy==1.17.3
+numpy==1.19.1
 pandas==0.25.3
 Pillow==6.2.1
 protobuf==3.10.0
