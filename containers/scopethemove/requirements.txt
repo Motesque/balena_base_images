@@ -67,7 +67,7 @@ python-minifier==2.2.1
 pytz==2019.3
 pyudev==0.22.0
 PyWavelets==1.1.1
-PyYAML==5.3.1
+PyYAML==5.1.2
 qrcode[pil]==6.1
 reportlab==3.5.46
 RPi.GPIO==0.7.0
