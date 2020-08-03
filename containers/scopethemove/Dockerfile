@@ -92,6 +92,7 @@ RUN if [ "$(dpkg --print-architecture)" = "armhf" ]; then cd /root/ \
 # ...but Cython needs to be installed first.
 COPY ./requirements.txt ./requirements-crossbar.txt /tmp/
 RUN pip3 install --no-deps \
+        --trusted-host pypi-buster.motesque.com \
         --index-url http://pypi-buster.motesque.com:8181 \
         --extra-index-url https://pypi.org/simple \
         Cython==0.29.21 \
