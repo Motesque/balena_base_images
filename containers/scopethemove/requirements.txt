@@ -44,7 +44,7 @@ mock==4.0.2
 msgpack==1.0.0
 multidict==4.7.6
 netifaces==0.10.9
-numba==0.46.0
+numba==0.50.1
 numpy==1.19.1
 pandas==1.1.0
 Pillow==7.2.0
