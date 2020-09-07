@@ -42,6 +42,7 @@ RUN install_packages \
      libcairo2-dev  \
      libdbus-1-3 \
      libdbus-glib-1-dev \
+     libgfortran3 \
      libhdf5-103 \
      libhdf5-dev \
      liblapack-dev \
