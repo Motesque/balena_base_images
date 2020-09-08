@@ -20,3 +20,8 @@ https://aws.amazon.com/blogs/devops/announcing-local-build-support-for-aws-codeb
 ```
 ./codebuild_build.sh -i aws/codebuild/standard:2.0 -a .
 ```
+### Useful commands for local development
+```
+docker build -t motesque/scopethemove-raspberrypi3-debian:dev  --build-arg ARCH=raspberrypi3  .
+docker build -t motesque/scopethemove-amd64-debian:dev  --build-arg ARCH=amd64  .
+```

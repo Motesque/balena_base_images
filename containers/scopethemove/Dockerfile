@@ -29,7 +29,6 @@ COPY --from=build /wiring/ /
 
 RUN install_packages \
      binutils \
-     build-essential \
      cron \
      curl \
      dbus \
@@ -39,16 +38,10 @@ RUN install_packages \
      htop \
      less  \
      libcairo2  \
-     libcairo2-dev  \
-     libdbus-1-3 \
-     libdbus-glib-1-dev \
-     libgfortran3 \
+     libgfortran5 \
      libhdf5-103 \
-     libhdf5-dev \
-     liblapack-dev \
      libopenjp2-7 \
      libopenblas-base \
-     libopenblas-dev \
      libpango-1.0-0  \
      libpangocairo-1.0-0  \
      net-tools \
@@ -99,14 +92,15 @@ RUN pip3 install --no-deps \
         --extra-index-url https://pypi.org/simple \
         Cython==0.29.21 \
         numpy==1.19.1
+
 RUN pip3 install  \
         --trusted-host pypi-buster.motesque.com \
         --index-url http://pypi-buster.motesque.com:8181 \
         --extra-index-url https://pypi.org/simple \
         --no-cache-dir \
         --no-deps \
-        --find-links . -r /tmp/requirements.txt  \
-        && pip3 check
+        --find-links . -r /tmp/requirements.txt
+RUN pip3 check
 RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
 
 
