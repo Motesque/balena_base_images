@@ -40,4 +40,4 @@ txaio==18.8.1
 txtorcon==19.1.0
 u-msgpack-python==2.5.2
 watchdog==0.9.0
-zope.interface==4.6.0
+zope.interface==4.7.2
