@@ -9,7 +9,7 @@ ENV PYTHON_VERSION=3.8.2
 RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 # Compile wiring library for i2c led control
 RUN mkdir -p /usr/tmp && cd /usr/tmp \
-    && wget -nv https://download.motesque.com/wiringPi-96344ff.tar.gz \
+    && wget  -nv https://download.motesque.com/wiringPi-96344ff.tar.gz \
     && tar xfz wiringPi-96344ff.tar.gz \
     && cd wiringPi-96344ff/wiringPi \
     && mkdir -p /wiring/usr/lib \
@@ -85,7 +85,7 @@ RUN if [ "$(dpkg --print-architecture)" = "armhf" ]; then cd /root/ \
 
 # install all neccessary python packages. --no-deps ensures every version is pinned
 # ...but Cython needs to be installed first.
-COPY ./requirements.txt ./requirements-crossbar.txt /tmp/
+COPY ./requirements.txt  /tmp/
 RUN pip3 install --no-deps \
         --trusted-host pypi-buster.motesque.com \
         --index-url http://pypi-buster.motesque.com:8181 \
