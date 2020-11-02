@@ -58,7 +58,7 @@ kiwisolver==1.2.0
 llvmlite==0.32.0
 lmdb==0.97
 MarkupSafe==1.1.1
-matplotlib==3.3.0
+matplotlib==3.3.2
 mistune==0.8.4
 mock==4.0.2
 msgpack==1.0.0
