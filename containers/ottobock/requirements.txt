@@ -30,7 +30,7 @@ PyPDF2==1.26.0
 Pyphen==0.9.5
 python-dateutil==2.8.1
 python-minifier==2.3.1
-PyYAML==5.3.1
+PyYAML==5.4
 rfc3986==1.4.0
 sentry-sdk==0.16.2
 six==1.15.0
