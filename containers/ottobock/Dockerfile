@@ -49,6 +49,9 @@ RUN install_packages \
 COPY --from=build /usr/local/lib/rsyslog /usr/local/lib/rsyslog
 COPY --from=build /usr/local/sbin/rsyslogd /usr/local/sbin
 
+RUN echo "/usr/local/lib/rsyslog" >/etc/ld.so.conf.d/rsyslog-libs.conf && \
+    ldconfig
+
 RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 RUN set -e \
     && wget  -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
