@@ -41,3 +41,9 @@ RUN install_packages cabextract xfonts-utils \
 
 RUN dpkg-query -W -f '${binary:Package},${Version},${binary:Summary}\n' > /usr/local/lib/_stage_debian_packages.csv
 RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
+
+# 2nd tier dependecies
+RUN install_packages
+       rsyslog  \
+       rsyslog-gnutls \
+       rsyslog-omhttp
