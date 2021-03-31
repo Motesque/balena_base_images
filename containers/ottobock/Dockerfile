@@ -1,4 +1,31 @@
 ARG ARCH
+FROM balenalib/$ARCH-debian:buster-build-20200502 as build
+
+RUN install_packages \
+    wget \
+    gcc \
+    make \
+    libc-dev \
+    pkg-config \
+    libestr-dev \
+    libfastjson-dev \
+    zlib1g-dev \
+    uuid-dev \
+    libgcrypt20-dev \
+    libcurl4-gnutls-dev \
+    wget
+
+RUN set -e && \
+    mkdir /rsyslog && \
+    cd /rsyslog && \
+    wget https://www.rsyslog.com/files/download/rsyslog/rsyslog-8.2102.0.tar.gz && \
+    tar -xvzf rsyslog-8.2102.0.tar.gz && \
+    cd rsyslog-8.2102.0 && \
+    ./configure --enable-omhttp && \
+    make && \
+    make install
+
+ARG ARCH
 FROM balenalib/$ARCH-debian:buster-run-20200502
 ARG ARCH
 ENV PYTHON_VERSION=3.8.2
@@ -6,6 +33,8 @@ ENV PYTHON_VERSION=3.8.2
 RUN install_packages \
     cron \
     less \
+    libfastjson4 \
+    libestr0 \
     libcairo2  \
     libpango-1.0-0  \
     libpangocairo-1.0-0  \
@@ -15,6 +44,9 @@ RUN install_packages \
     openssh-client \
     vim \
     wget
+
+COPY --from=build /usr/local/lib/rsyslog /usr/local/lib/rsyslog
+COPY --from=build /usr/local/sbin/rsyslogd /usr/local/sbin
 
 RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 RUN set -e \
@@ -41,9 +73,3 @@ RUN install_packages cabextract xfonts-utils \
 
 RUN dpkg-query -W -f '${binary:Package},${Version},${binary:Summary}\n' > /usr/local/lib/_stage_debian_packages.csv
 RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
-
-# 2nd tier dependecies
-RUN install_packages \
-       rsyslog  \
-       rsyslog-gnutls \
-       rsyslog-omhttp
