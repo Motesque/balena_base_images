@@ -21,7 +21,7 @@ RUN set -e && \
     wget https://www.rsyslog.com/files/download/rsyslog/rsyslog-8.2102.0.tar.gz && \
     tar -xvzf rsyslog-8.2102.0.tar.gz && \
     cd rsyslog-8.2102.0 && \
-    ./configure --enable-omhttp && \
+    ./configure --enable-omhttp --enable-imfile && \
     make && \
     make install
 
@@ -35,6 +35,7 @@ RUN install_packages \
     less \
     libfastjson4 \
     libestr0 \
+    libcurl3-gnutls \
     libcairo2  \
     libpango-1.0-0  \
     libpangocairo-1.0-0  \
