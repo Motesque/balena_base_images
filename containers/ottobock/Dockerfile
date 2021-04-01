@@ -49,7 +49,13 @@ RUN install_packages \
 COPY --from=build /usr/local/lib/rsyslog /usr/local/lib/rsyslog
 COPY --from=build /usr/local/sbin/rsyslogd /usr/local/sbin
 
-RUN echo "/usr/local/lib/rsyslog" >/etc/ld.so.conf.d/rsyslog-libs.conf && \
+COPY rsyslog/rsyslog.conf /etc/rsyslog.conf
+COPY rsyslog/rsyslog /etc/init.d/rsyslog
+
+RUN chmod +x /etc/init.d/rsyslog && \
+    mkdir -p /etc/rsyslog.d && \
+    useradd -U -G adm syslog && \
+    echo "/usr/local/lib/rsyslog" >/etc/ld.so.conf.d/rsyslog-libs.conf && \
     ldconfig
 
 RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
