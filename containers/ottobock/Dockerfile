@@ -54,6 +54,7 @@ COPY rsyslog/rsyslog /etc/init.d/rsyslog
 
 RUN chmod +x /etc/init.d/rsyslog && \
     mkdir -p /etc/rsyslog.d && \
+    mkdir -p /var/spool/rsyslog && \
     useradd -U -G adm syslog && \
     echo "/usr/local/lib/rsyslog" >/etc/ld.so.conf.d/rsyslog-libs.conf && \
     ldconfig
