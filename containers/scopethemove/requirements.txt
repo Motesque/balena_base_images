@@ -95,6 +95,7 @@ PyQRCode==1.2.1
 pyserial==3.4
 python-dateutil==2.8.0
 python-minifier==2.2.1
+python-multipart==0.0.5
 python-util==1.2
 python4yahdlc==1.2.0
 PyTrie==0.3.1
