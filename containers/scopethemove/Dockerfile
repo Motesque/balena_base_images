@@ -26,6 +26,8 @@ ENV PYTHON_VERSION=3.8.2
 
 COPY --from=build /wiring/ /
 
+RUN apt-get update -y
+RUN apt-get upgrade -y
 
 RUN install_packages \
      binutils \
@@ -109,5 +111,8 @@ RUN install_packages \
        nginx \
        lockfile-progs \
        rsyslog  \
-       rsyslog-gnutls
+       rsyslog-gnutls \
+
+       # support writing to common USB filesystems for backups
+       usbmount exfat-fuse exfat-utils ntfs-3g
 
