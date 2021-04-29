@@ -29,8 +29,6 @@ COPY --from=build /wiring/ /
 RUN apt-get update -y
 RUN apt-get upgrade -y
 
-RUN apt-get update -y && apt-get upgrade -y && apt-get install -y usbmount
-
 RUN install_packages \
      binutils \
      cron \
