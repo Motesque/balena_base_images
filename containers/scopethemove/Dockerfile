@@ -35,6 +35,8 @@ RUN install_packages \
      curl \
      dbus \
      dfu-util \
+     exfat-fuse \
+     exfat-utils \
      ffmpeg \
      gfortran \
      htop \
@@ -49,10 +51,12 @@ RUN install_packages \
      net-tools \
      netcat \
      nfs-common \
+     ntfs-3g \
      ntp \
      openssl  \
      openssh-client \
      pkg-config \
+     usbmount \
      usbutils \
      vim \
      wget \
