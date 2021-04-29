@@ -29,6 +29,8 @@ COPY --from=build /wiring/ /
 RUN apt-get update -y
 RUN apt-get upgrade -y
 
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y usbmount
+
 RUN install_packages \
      binutils \
      cron \
@@ -56,11 +58,12 @@ RUN install_packages \
      openssl  \
      openssh-client \
      pkg-config \
-     usbmount \
      usbutils \
      vim \
      wget \
      zlib1g
+
+RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then install_packages usbmount; fi"]
 
 # install microsoft contrib core fonts (Arial, Georgia etc). Needed for proper PDF reports
 RUN install_packages cabextract xfonts-utils \
