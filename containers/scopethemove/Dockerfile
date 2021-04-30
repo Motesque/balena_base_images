@@ -116,8 +116,5 @@ RUN install_packages \
        nginx \
        lockfile-progs \
        rsyslog  \
-       rsyslog-gnutls \
-
-       # support writing to common USB filesystems for backups
-       usbmount exfat-fuse exfat-utils ntfs-3g
+       rsyslog-gnutls 
 
