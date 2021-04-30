@@ -35,6 +35,8 @@ RUN install_packages \
      curl \
      dbus \
      dfu-util \
+     exfat-fuse \
+     exfat-utils \
      ffmpeg \
      gfortran \
      htop \
@@ -49,6 +51,7 @@ RUN install_packages \
      net-tools \
      netcat \
      nfs-common \
+     ntfs-3g \
      ntp \
      openssl  \
      openssh-client \
@@ -57,6 +60,8 @@ RUN install_packages \
      vim \
      wget \
      zlib1g
+
+RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then install_packages usbmount; fi"]
 
 # install microsoft contrib core fonts (Arial, Georgia etc). Needed for proper PDF reports
 RUN install_packages cabextract xfonts-utils \
@@ -111,8 +116,5 @@ RUN install_packages \
        nginx \
        lockfile-progs \
        rsyslog  \
-       rsyslog-gnutls \
-
-       # support writing to common USB filesystems for backups
-       usbmount exfat-fuse exfat-utils ntfs-3g
+       rsyslog-gnutls 
 
