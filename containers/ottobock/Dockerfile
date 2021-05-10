@@ -32,6 +32,7 @@ ENV PYTHON_VERSION=3.8.2
 
 RUN install_packages \
     cron \
+    ffmpeg \
     less \
     libfastjson4 \
     libestr0 \
