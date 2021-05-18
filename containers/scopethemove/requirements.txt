@@ -30,7 +30,6 @@ aiohttp-tus==1.0.0
 aiohttp==3.6.2
 argh==0.26.2
 async-timeout==3.0.1
-attrs==19.3.0
 attrs==21.2.0
 autobahn==19.10.1
 awscli==1.18.133
