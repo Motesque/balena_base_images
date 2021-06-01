@@ -61,8 +61,6 @@ RUN install_packages \
      wget \
      zlib1g
 
-RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then install_packages usbmount; fi"]
-
 # install microsoft contrib core fonts (Arial, Georgia etc). Needed for proper PDF reports
 RUN install_packages cabextract xfonts-utils \
     && wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.8_all.deb \
