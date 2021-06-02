@@ -144,7 +144,7 @@ typing-extensions==3.7.4.1
 u-msgpack-python==2.5.2
 uWSGI==2.0.19.1
 ujson==3.2.0
-urllib3==1.25.6
+urllib3==1.26.5
 urwid==2.1.1
 uvicorn==0.11.8
 uvloop==0.14.0
