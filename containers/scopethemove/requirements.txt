@@ -19,7 +19,7 @@ PyYAML==5.3.1
 Pygments==2.4.2
 Pyphen==0.9.5
 RPi.GPIO==0.7.0
-Twisted==19.7.0
+Twisted==22.2.0
 WTForms==2.2.1
 WeasyPrint==51
 Werkzeug==0.16.0
