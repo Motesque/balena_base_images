@@ -27,9 +27,8 @@ phases:
       - apt-get update && apt-get install -y qemu-system-arm qemu-user-static
   pre_build:
     commands:
-      - echo $DOCKER_PASSWORD | docker login  -u $DOCKER_USERNAME --password-stdin
       - export REPO_BASE=473689091316.dkr.ecr.eu-central-1.amazonaws.com
-      - $(aws ecr get-login-password --region eu-central-1)
+      - aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin $REPO_BASE
   build:
     commands:
       - chmod +x automation/jenkins_build.sh

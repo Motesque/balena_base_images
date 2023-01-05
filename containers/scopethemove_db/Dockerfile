@@ -1,5 +1,5 @@
 ARG ARCH
-FROM balenalib/$ARCH-debian:buster-build-20200502 as build
+FROM balenalib/$ARCH-debian:buster-build-20221215 as build
 ARG ARCH
 
 
