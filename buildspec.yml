@@ -29,7 +29,7 @@ phases:
     commands:
       - echo $DOCKER_PASSWORD | docker login  -u $DOCKER_USERNAME --password-stdin
       - export REPO_BASE=473689091316.dkr.ecr.eu-central-1.amazonaws.com
-      - $(aws ecr get-login --no-include-email --region eu-central-1)
+      - $(aws ecr get-login-password --region eu-central-1)
   build:
     commands:
       - chmod +x automation/jenkins_build.sh
