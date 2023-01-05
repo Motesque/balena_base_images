@@ -2,7 +2,7 @@ ARG ARCH
 FROM balenalib/$ARCH-debian:buster-build-20221215 as build
 ARG ARCH
 
-
+RUN [ "cross-build-start" ]
 RUN install_packages \
     autotools-dev \
     debhelper \
@@ -25,7 +25,7 @@ RUN install_packages \
 ##   - https://github.com/apache/couchdb-docker/issues/54
 
 #RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
-RUN [ "cross-build-start" ]
+
 # compile patched CouchDB SpiderMonkey
 RUN cd  /tmp \
     && git clone https://github.com/apache/couchdb-pkg.git \
@@ -61,7 +61,7 @@ ENV PYTHON_VERSION=3.8.2
 
 COPY --from=build /wiring/ /
 
-
+RUN [ "cross-build-start" ]
 RUN install_packages wget libnspr4 icu-devtools
 
 COPY --from=build  /tmp/apache-couchdb-2.3.0/rel/couchdb /usr/local/lib/couchdb
@@ -69,7 +69,7 @@ COPY --from=build  /tmp/couchdb-pkg/js/couch-libmozjs185-1.0_1.8.5-1.0.0*.deb /u
 RUN apt-get install -f /usr/local/lib/couchdb/couch-libmozjs185-1.0_1.8.5-1.0.0*.deb
 
 #RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
-RUN [ "cross-build-start" ]
+
 RUN set -e \
     && wget -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && tar -zxf Python-$PYTHON_VERSION.linux-$ARCH.tar.gz  --strip-components=1 \

@@ -27,6 +27,7 @@ ENV PYTHON_VERSION=3.8.2
 
 COPY --from=build /wiring/ /
 
+RUN [ "cross-build-start" ]
 RUN apt-get update -y
 RUN apt-get upgrade -y
 
@@ -69,7 +70,7 @@ RUN install_packages cabextract xfonts-utils \
     && rm ttf-mscorefonts-installer_3.8_all.deb
 
 #RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
-RUN [ "cross-build-start" ]
+
 # install python 3.x for this platform
 RUN set -e \
     && wget -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
