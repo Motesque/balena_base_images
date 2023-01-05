@@ -6,7 +6,8 @@ FROM balenalib/$ARCH-debian:buster-build-20221215 as build
 ARG ARCH
 ENV PYTHON_VERSION=3.8.2
 
-RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
+RUN [ "cross-build-start" ]
+#RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 # Compile wiring library for i2c led control
 RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && wget  -nv https://download.motesque.com/wiringPi-96344ff.tar.gz \
@@ -15,12 +16,12 @@ RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && mkdir -p /wiring/usr/lib \
     && DESTDIR=/wiring/usr make \
     && DESTDIR=/wiring/usr make install
-RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
-
+#RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
+RUN [ "cross-build-end" ]
 #-------------------------
 # Runtime Stage
 #-------------------------
-FROM balenalib/$ARCH-debian:buster-run-20200502
+FROM balenalib/$ARCH-debian:buster-run-20221215
 ARG ARCH
 ENV PYTHON_VERSION=3.8.2
 
@@ -67,8 +68,8 @@ RUN install_packages cabextract xfonts-utils \
     && dpkg -i ttf-mscorefonts-installer_3.8_all.deb \
     && rm ttf-mscorefonts-installer_3.8_all.deb
 
-RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
-
+#RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
+RUN [ "cross-build-start" ]
 # install python 3.x for this platform
 RUN set -e \
     && wget -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
@@ -106,8 +107,8 @@ RUN pip3 install  \
         --no-deps \
         --find-links . -r /tmp/requirements.txt
 RUN pip3 check
-RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
-
+#RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
+RUN [ "cross-build-end" ]
 
 # 2nd tier dependecies
 RUN install_packages \

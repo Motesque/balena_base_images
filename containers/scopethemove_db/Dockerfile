@@ -24,7 +24,8 @@ RUN install_packages \
 ##   - https://github.com/apache/couchdb-pkg
 ##   - https://github.com/apache/couchdb-docker/issues/54
 
-RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
+#RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
+RUN [ "cross-build-start" ]
 # compile patched CouchDB SpiderMonkey
 RUN cd  /tmp \
     && git clone https://github.com/apache/couchdb-pkg.git \
@@ -49,12 +50,12 @@ RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && mkdir -p /wiring/usr/lib \
     && DESTDIR=/wiring/usr make \
     && DESTDIR=/wiring/usr make install
-RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
-
+#RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
+RUN [ "cross-build-end" ]
 #-------------------------
 # Runtime Image
 #-------------------------
-FROM balenalib/$ARCH-debian:buster-run-20200502
+FROM balenalib/$ARCH-debian:buster-run-20221215
 ARG ARCH
 ENV PYTHON_VERSION=3.8.2
 
@@ -67,7 +68,8 @@ COPY --from=build  /tmp/apache-couchdb-2.3.0/rel/couchdb /usr/local/lib/couchdb
 COPY --from=build  /tmp/couchdb-pkg/js/couch-libmozjs185-1.0_1.8.5-1.0.0*.deb /usr/local/lib/couchdb/
 RUN apt-get install -f /usr/local/lib/couchdb/couch-libmozjs185-1.0_1.8.5-1.0.0*.deb
 
-RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
+#RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
+RUN [ "cross-build-start" ]
 RUN set -e \
     && wget -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && tar -zxf Python-$PYTHON_VERSION.linux-$ARCH.tar.gz  --strip-components=1 \
@@ -83,4 +85,5 @@ RUN pip3 install  \
         --no-cache-dir \
         --no-deps --find-links . -r /tmp/requirements.txt  \
         && pip3 check
-RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
+#RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
+RUN [ "cross-build-end" ]
