@@ -61,7 +61,7 @@ RUN install_packages \
 
 # install microsoft contrib core fonts (Arial, Georgia etc). Needed for proper PDF reports
 RUN install_packages cabextract xfonts-utils \
-    && wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.8_all.deb \
+    && wget https://nyc3-download-01.motesque.com/packages/ttf-mscorefonts-installer_3.8_all.deb \
     && dpkg -i ttf-mscorefonts-installer_3.8_all.deb \
     && rm ttf-mscorefonts-installer_3.8_all.deb
 
@@ -78,7 +78,7 @@ RUN set -e \
 # we need to particle-cli to update photon bootloaders. We are using a zipped version since the offical
 # installer has many problems. We also need to fool the autoupdate feature
 RUN if [ "$(dpkg --print-architecture)" = "armhf" ]; then cd /root/ \
-    && wget https://download.motesque.com/particle_cli_motesque_worked.tar.gz \
+    && wget https://nyc3-download-01.motesque.com/packages/particle_cli_motesque_worked.tar.gz \
     && tar -xzf particle_cli_motesque_worked.tar.gz --strip-components=1 \
     && rm particle_cli_motesque_worked.tar.gz \
     && chmod +x /root/bin/particle \

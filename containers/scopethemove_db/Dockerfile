@@ -33,7 +33,7 @@ RUN cd  /tmp \
 RUN cd /tmp/ \
     && apt-get install -f /tmp/couchdb-pkg/js/couch-libmozjs185-1.0_1.8.5-1.0.0*.deb \
     && apt-get install -f /tmp/couchdb-pkg/js/couch-libmozjs185-dev_1.8.5-1.0.0*.deb \
-    && wget https://archive.apache.org/dist/couchdb/source/2.3.0/apache-couchdb-2.3.0.tar.gz \
+    && wget https://nyc3-download-01.motesque.com/packages/apache-couchdb-2.3.0.tar.gz \
     && tar -zxvf apache-couchdb-2.3.0.tar.gz \
     && cd apache-couchdb-2.3.0 \
     && ./configure --disable-docs \
@@ -41,7 +41,7 @@ RUN cd /tmp/ \
 
 # Compile wiring library for i2c led control
 RUN mkdir -p /usr/tmp && cd /usr/tmp \
-    && wget -nv https://download.motesque.com/wiringPi-96344ff.tar.gz \
+    && wget -nv https://nyc3-download-01.motesque.com/packages/wiringPi-96344ff.tar.gz \
     && tar xfz wiringPi-96344ff.tar.gz \
     && cd wiringPi-96344ff/wiringPi \
     && mkdir -p /wiring/usr/lib \

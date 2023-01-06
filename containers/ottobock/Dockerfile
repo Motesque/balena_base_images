@@ -18,7 +18,7 @@ RUN install_packages \
 RUN set -e && \
     mkdir /rsyslog && \
     cd /rsyslog && \
-    wget https://www.rsyslog.com/files/download/rsyslog/rsyslog-8.2102.0.tar.gz && \
+    wget https://nyc3-download-01.motesque.com/packages/rsyslog-8.2102.0.tar.gz && \
     tar -xvzf rsyslog-8.2102.0.tar.gz && \
     cd rsyslog-8.2102.0 && \
     ./configure --enable-omhttp --enable-imfile && \
@@ -79,7 +79,7 @@ RUN pip3 install  \
 
 # install microsoft contrib core fonts (Arial, Georgia etc). Needed for proper PDF reports
 RUN install_packages cabextract xfonts-utils \
-    && wget -nv http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.8_all.deb \
+    && wget -nv https://nyc3-download-01.motesque.com/packages/ttf-mscorefonts-installer_3.8_all.deb \
     && dpkg -i ttf-mscorefonts-installer_3.8_all.deb \
     && rm ttf-mscorefonts-installer_3.8_all.deb
 
