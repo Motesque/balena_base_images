@@ -3,7 +3,7 @@ version: 0.2
 env:
   variables:
     MOTESQUE_ARCH: "amd64"
-    MOTESQUE_CONTAINER: "scopethemove_db"
+    MOTESQUE_CONTAINER: "scopethemove"
     # key: "value"
   #parameter-store:
      # key: "value"
@@ -14,43 +14,26 @@ env:
   #exported-variables:
      # - variable
      # - variable
-  #git-credential-helper: yes
+  git-credential-helper: yes
   #https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-env-vars.html
 
 phases:
   install:
-#    runtime-versions:
-#      docker: 18
     commands:
       - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2&
       - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
       - apt-get update && apt-get install -y qemu-system-arm qemu-user-static
+      - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes # register binfmts for emulation
   pre_build:
     commands:
       - export REPO_BASE=473689091316.dkr.ecr.eu-central-1.amazonaws.com
       - aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin $REPO_BASE
   build:
     commands:
-      - chmod +x automation/jenkins_build.sh
-      - ./automation/jenkins_build.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
+      - chmod +x automation/container_build.sh
+      - ./automation/container_build.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
 
   post_build:
     commands:
-      - chmod +x automation/jenkins_publish.sh
-      - ./automation/jenkins_publish.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER
-#reports:
-  #report-name-or-arn:
-    #files:
-      # - location
-      # - location
-    #base-directory: location
-    #discard-paths: yess
-    #file-format: JunitXml | CucumberJson
-#artifacts:
-#    files:
-#      - /var/docker-images/*
-#    discard-paths: yes
-
-#cache:
-  #paths:
-    # - paths
+      - chmod +x automation/container_publish.sh
+      - ./automation/container_publish.sh $MOTESQUE_ARCH $MOTESQUE_CONTAINER

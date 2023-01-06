@@ -1,5 +1,5 @@
 ARG ARCH
-FROM balenalib/$ARCH-debian:buster-build-20200502 as build
+FROM balenalib/$ARCH-debian:buster-build-20221215 as build
 
 RUN install_packages \
     wget \
@@ -26,7 +26,7 @@ RUN set -e && \
     make install
 
 ARG ARCH
-FROM balenalib/$ARCH-debian:buster-run-20200502
+FROM balenalib/$ARCH-debian:buster-run-20221215
 ARG ARCH
 ENV PYTHON_VERSION=3.8.2
 
@@ -60,7 +60,7 @@ RUN chmod +x /etc/init.d/rsyslog && \
     echo "/usr/local/lib/rsyslog" >/etc/ld.so.conf.d/rsyslog-libs.conf && \
     ldconfig
 
-RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
+
 RUN set -e \
     && wget  -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && tar -zxf Python-$PYTHON_VERSION.linux-$ARCH.tar.gz  --strip-components=1 \
@@ -84,4 +84,4 @@ RUN install_packages cabextract xfonts-utils \
     && rm ttf-mscorefonts-installer_3.8_all.deb
 
 RUN dpkg-query -W -f '${binary:Package},${Version},${binary:Summary}\n' > /usr/local/lib/_stage_debian_packages.csv
-RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
+

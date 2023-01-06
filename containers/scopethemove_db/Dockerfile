@@ -2,7 +2,6 @@ ARG ARCH
 FROM balenalib/$ARCH-debian:buster-build-20221215 as build
 ARG ARCH
 
-RUN [ "cross-build-start" ]
 RUN install_packages \
     autotools-dev \
     debhelper \
@@ -23,8 +22,6 @@ RUN install_packages \
 ##   - https://github.com/apache/couchdb/issues/1832
 ##   - https://github.com/apache/couchdb-pkg
 ##   - https://github.com/apache/couchdb-docker/issues/54
-
-#RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 
 # compile patched CouchDB SpiderMonkey
 RUN cd  /tmp \
@@ -50,8 +47,7 @@ RUN mkdir -p /usr/tmp && cd /usr/tmp \
     && mkdir -p /wiring/usr/lib \
     && DESTDIR=/wiring/usr make \
     && DESTDIR=/wiring/usr make install
-#RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
-RUN [ "cross-build-end" ]
+
 #-------------------------
 # Runtime Image
 #-------------------------
@@ -61,7 +57,6 @@ ENV PYTHON_VERSION=3.8.2
 
 COPY --from=build /wiring/ /
 
-RUN [ "cross-build-start" ]
 RUN install_packages wget libnspr4 icu-devtools
 
 COPY --from=build  /tmp/apache-couchdb-2.3.0/rel/couchdb /usr/local/lib/couchdb
@@ -85,5 +80,3 @@ RUN pip3 install  \
         --no-cache-dir \
         --no-deps --find-links . -r /tmp/requirements.txt  \
         && pip3 check
-#RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-end; fi"]
-RUN [ "cross-build-end" ]
