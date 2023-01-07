@@ -33,7 +33,7 @@ RUN cd  /tmp \
 RUN cd /tmp/ \
     && apt-get install -f /tmp/couchdb-pkg/js/couch-libmozjs185-1.0_1.8.5-1.0.0*.deb \
     && apt-get install -f /tmp/couchdb-pkg/js/couch-libmozjs185-dev_1.8.5-1.0.0*.deb \
-    && wget https://nyc3-download-01.motesque.com/packages/apache-couchdb-2.3.0.tar.gz \
+    && wget  https://scopethemove-public-download.s3.eu-central-1.amazonaws.com/packages/apache-couchdb-2.3.0.tar.gz \
     && tar -zxvf apache-couchdb-2.3.0.tar.gz \
     && cd apache-couchdb-2.3.0 \
     && ./configure --disable-docs \
@@ -41,7 +41,7 @@ RUN cd /tmp/ \
 
 # Compile wiring library for i2c led control
 RUN mkdir -p /usr/tmp && cd /usr/tmp \
-    && wget -nv https://nyc3-download-01.motesque.com/packages/wiringPi-96344ff.tar.gz \
+    && wget -nv https://scopethemove-public-download.s3.eu-central-1.amazonaws.com/packages/wiringPi-96344ff.tar.gz \
     && tar xfz wiringPi-96344ff.tar.gz \
     && cd wiringPi-96344ff/wiringPi \
     && mkdir -p /wiring/usr/lib \
@@ -66,7 +66,7 @@ RUN apt-get install -f /usr/local/lib/couchdb/couch-libmozjs185-1.0_1.8.5-1.0.0*
 #RUN ["/bin/bash", "-c", "if [ $ARCH != 'amd64' ]; then cross-build-start; fi"]
 
 RUN set -e \
-    && wget -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
+    && wget -nv https://scopethemove-public-download.s3.eu-central-1.amazonaws.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && tar -zxf Python-$PYTHON_VERSION.linux-$ARCH.tar.gz  --strip-components=1 \
     && rm Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && ldconfig \
@@ -74,8 +74,8 @@ RUN set -e \
 
 COPY ./requirements.txt /tmp/
 RUN pip3 install  \
-        --trusted-host pypi-buster.motesque.com \
-        --index-url http://pypi-buster.motesque.com:8181 \
+        --trusted-host pypi-buster-aws.motesque.com \
+        --index-url http://pypi-buster-aws.motesque.com:8181 \
         --extra-index-url https://pypi.org/simple \
         --no-cache-dir \
         --no-deps --find-links . -r /tmp/requirements.txt  \

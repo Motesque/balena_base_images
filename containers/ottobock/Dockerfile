@@ -18,7 +18,7 @@ RUN install_packages \
 RUN set -e && \
     mkdir /rsyslog && \
     cd /rsyslog && \
-    wget https://nyc3-download-01.motesque.com/packages/rsyslog-8.2102.0.tar.gz && \
+    wget https://scopethemove-public-download.s3.eu-central-1.amazonaws.com/packages/rsyslog-8.2102.0.tar.gz && \
     tar -xvzf rsyslog-8.2102.0.tar.gz && \
     cd rsyslog-8.2102.0 && \
     ./configure --enable-omhttp --enable-imfile && \
@@ -62,7 +62,7 @@ RUN chmod +x /etc/init.d/rsyslog && \
 
 
 RUN set -e \
-    && wget  -nv https://nyc3-download-01.motesque.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
+    && wget  -nv https://scopethemove-public-download.s3.eu-central-1.amazonaws.com/packages/Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && tar -zxf Python-$PYTHON_VERSION.linux-$ARCH.tar.gz  --strip-components=1 \
     && rm Python-$PYTHON_VERSION.linux-$ARCH.tar.gz \
     && ldconfig \
@@ -70,8 +70,8 @@ RUN set -e \
 
 COPY ./requirements.txt /tmp/
 RUN pip3 install  \
-        --trusted-host pypi-buster.motesque.com \
-        --index-url http://pypi-buster.motesque.com:8181 \
+        --trusted-host pypi-buster-aws.motesque.com \
+        --index-url http://pypi-buster-aws.motesque.com:8181 \
         --extra-index-url https://pypi.org/simple \
         --no-cache-dir \
         --no-deps --find-links . -r /tmp/requirements.txt  \
@@ -79,7 +79,7 @@ RUN pip3 install  \
 
 # install microsoft contrib core fonts (Arial, Georgia etc). Needed for proper PDF reports
 RUN install_packages cabextract xfonts-utils \
-    && wget -nv https://nyc3-download-01.motesque.com/packages/ttf-mscorefonts-installer_3.8_all.deb \
+    && wget -nv https://scopethemove-public-download.s3.eu-central-1.amazonaws.com/packages/ttf-mscorefonts-installer_3.8_all.deb \
     && dpkg -i ttf-mscorefonts-installer_3.8_all.deb \
     && rm ttf-mscorefonts-installer_3.8_all.deb
 
