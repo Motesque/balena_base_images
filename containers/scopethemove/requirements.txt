@@ -47,7 +47,7 @@ colorama==0.4.1
 constantly==15.1.0
 croniter==0.3.30
 crossbar==19.2.1
-cryptography==3.0
+cryptography==39.0.1
 cssselect2==0.2.2
 cycler==0.10.0
 dbus-python==1.2.16
