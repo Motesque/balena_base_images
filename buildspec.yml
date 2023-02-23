@@ -23,6 +23,7 @@ phases:
       - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2&
       - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
       - apt-get update && apt-get install -y qemu-system-arm qemu-user-static
+      - docker login -u DOCKER_USERNAME -p DOCKER_PASSWORD
       - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes # register binfmts for emulation
   pre_build:
     commands:
