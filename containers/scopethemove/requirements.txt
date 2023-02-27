@@ -22,7 +22,7 @@ RPi.GPIO==0.7.0
 Twisted==19.7.0
 WTForms==2.2.1
 WeasyPrint==51
-Werkzeug==0.16.0
+Werkzeug==2.2.3
 aiohttp-cors==0.7.0
 aiohttp-middlewares==1.1.0
 aiohttp-sse==2.0.0
