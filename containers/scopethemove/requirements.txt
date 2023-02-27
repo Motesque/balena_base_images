@@ -117,7 +117,7 @@ python4yahdlc==1.2.0
 pytz==2019.3
 pyudev==0.22.0
 qrcode[pil]==6.1
-reportlab==3.5.46
+reportlab==3.5.55
 requests==2.22.0
 rfc3986==1.4.0
 rsa==3.4.2
