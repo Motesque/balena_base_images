@@ -125,7 +125,7 @@ s3transfer==0.3.3
 scikit-learn==0.23.1
 scipy==1.5.2
 sdnotify==0.3.2
-seaborn=0.12.2
+seaborn==0.12.2
 sentry-sdk[flask]==0.16.0
 service-identity==18.1.0
 setproctitle==1.1.10
